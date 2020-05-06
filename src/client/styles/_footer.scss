@@ -1,0 +1,20 @@
+.footer {
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	.footer__logo {
+		max-width: 50px;
+		max-height: auto;
+	}
+
+	.footer__text {
+		text-decoration: underline;
+	}
+}
+
+
+
+	

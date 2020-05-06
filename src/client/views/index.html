@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Trip Organizer</title>
+		<meta charset="utf-8" />
+		<meta name="description" content="Trip Organizer is an app that let you make travel plans by entering travel destination, departure date and return date. The app will save this trip for you, add weather on travel days, show you information and picture about trip destination. Developed by Farhan Kiyani powered by K-labs Web Development" />
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<script src="https://kit.fontawesome.com/5501c51d93.js" crossorigin="anonymous"></script>
+	</head>
+	<body class="container-fluid p-0 bg-light"  data-spy="scroll" data-target="#navbarNav" data-offset="0">
+		<header class="header navbar fixed-top navbar-expand-lg navbar-light bg-light" id="page__header">
+			<div class="header__main media navbar-brand">
+				<a href="#" class="navbar-brand">
+					<img src="imgs/logo.png" alt="logo" class="header__main__logo mr-3 align-self-center" id="logo" />
+					Trips Organizer
+				</a>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			</button>
+			<nav class="navbar__menu collapse  navbar-collapse" id="navbarNav">
+		      <!-- Navigation starts as empty UL that will be populated with JS -->
+		      <ul id="navbar__list" class="nav nav-pills"></ul>
+		    </nav>
+		    <button type="button" class="btn btn-success">Sign-Up</button>
+		</header>
+		<main class="page__section row align-items-center section__login " data-nav="Login" id="section__login">
+			<div class="login__form col-md-6 offset-md-3">
+				<h2 class="section__heading display-3 text-white text-center mb-5">
+					Please Login to start
+				</h2>
+				<form class="needs-validation" id="form">
+					<fieldset id="form__username" class="form-group">
+						<label for="userID" class="form__label sr-only sr-only-focusable">
+							Username:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="userID" id="userID" placeholder="Please Enter your username." class="form-control check__validation" required>
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This username does not exist.</div>
+						<small id="urlHelp" class="form-text text-light">If you dont have a username, please click the signup button on top right corner.</small>
+					</fieldset>
+					<fieldset id="form__password" class="form-group">
+						<label for="title" class="form__label sr-only sr-only-focusable">
+							Password:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
+							</div>
+							<input type="password" name="password" id="password" placeholder="Please enter your password" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">Password does not match the provided username.</div>
+						<small id="titleHelp" class="form-text text-light">If you want to demo the app without registering please use "demo" as username and password.</small>
+					</fieldset>
+					<div class="form__buttons form-group">
+						<button class="form__button form__button-reset btn btn-danger" type="reset" name="reset" id="reset">Reset</button>
+						<button class="form__button form__button-submit btn btn-primary" type="submit" name="submit" id="submit">Submit</button>
+					</div>
+				</form>
+			</div>	
+		</main>
+		<section class="page__section pt-5 section__info" data-nav="Application desctiption" id="desctiption">
+			<article class="article container-fluid">
+				<h2 class="section__heading text-center">
+					Application desctiption
+				</h2>
+				<p class="article__text text-center">
+					Trips Organizer is an app that let you make travel plans by entering travel destination, departure date and return date. The app will save this information for you, add weather forcast about travel days, show you information and picture about trip destination.
+				</p>
+				<h3 class="article__heading text-center">
+					Application functions
+				</h3>
+				<p class="article__text text-center">
+					Trips organizer will make planing trips a breeze for you by providing below features.
+				</p>
+				<div class="section__cards row justify-content-between mt-5">
+					<div class="card cards col-md-3">
+						<img src="./imgs/feature1.jpg" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Record Trip Data</h5>
+							<p class="card-text">We often forget the plans we made months ago about that one awesome life changing getaway, when we finally get free time to execute said plan. With this app you will not have to worry.</p>
+							<a href="#" class="btn btn-primary">Sign up</a>
+						</div>
+					</div>
+					<div class="card cards col-md-3">
+						<img src="./imgs/feature2.jpg" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Weather Forcasts</h5>
+							<p class="card-text">Trips Organizer will give you weather forcast so you dont have to worry about the rain ruining your day (or vise versa). You can view the live weather forcasts of your destination on trip page.</p>
+							<a href="#" class="btn btn-primary">Sign up</a>
+						</div>
+					</div>
+					<div class="card cards col-md-3">
+						<img src="./imgs/feature3.jpg" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Destination Information</h5>
+							<p class="card-text">Trips Organizer will show you interesting facts and other relevent information regarding your trip destination so you can make sure that your valuable trip will be memorable.</p>
+							<a href="#" class="btn btn-primary">Sign up</a>
+						</div>
+					</div>
+					<div class="card cards col-md-3">
+						<img src="./imgs/feature4.jpg" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Print trip plans</h5>
+							<p class="card-text">With Trips Organizer you dont have to worry about your plans being lost due to bad connectivity. Not only does Trip Organizer work offline, you can also print your plan to keep a backup.</p>
+							<a href="#" class="btn btn-primary">Sign up</a>
+						</div>
+					</div>
+				</div>
+			</article>		
+		</section>
+		<section class="page__section section__video row align-items-start text-white bg-dark" data-nav="How to use" id="tutorial">
+			<div class = "tutorial__div col-md-8 offset-md-2">
+            	<h2 class="section__heading text-center">
+            		How to use Trips Organizer
+            	</h2>
+            	<p class="lead text-center">
+            		Please watch the below video to get familiar wtih Trips Organizer and its various features.
+            	</p>
+			</div>
+			<div class = "tutorial__div col-md-8 offset-md-2">
+            	<div class="embed-responsive embed-responsive-16by9">
+					<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ScMzIvxBSi4" allowfullscreen></iframe>
+				</div>
+			</div>
+		</section>
+		<section class="page__section section__contact row align-items-start" data-nav="Contact us" id="contact">
+			<div class = "tutorial__div col-md-8 offset-md-2">
+            	<h2 class="section__heading text-dark text-center">
+            		Contact US
+            	</h2>
+            	<p class="lead text-center">
+            		If you have any issues/suggestions about Trips Organizer or you want to contact the developer behind this app all you need to do is fill the form below and press send button.
+            	</p>
+            	<form class="needs-validation" id="form__contact">
+					<fieldset id="form__name" class="form-group">
+						<label for="name" class="form__label sr-only sr-only-focusable">
+							Username:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="name" id="name" placeholder="Please Enter your full name." class="form-control check__validation" required>
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This is not a vaild name.</div>
+					</fieldset>
+					<fieldset id="form__email" class="form-group">
+						<label for="title" class="form__label sr-only sr-only-focusable">
+							Email:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+							</div>
+							<input type="email" name="email" id="email" placeholder="Please enter your email address" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This is not a vaild email.</div>
+						<small id="titleHelp" class="form-text text-muted">We will never share your email address with any one.</small>
+					</fieldset>
+					<fieldset id="form__text" class="form__text form-group">
+						<label for="text" class="form__label sr-only sr-only-focusable">
+							Message
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-comment"></i></span>	
+							</div>
+							<textarea class="form__text form-control check__validation" rows="13" name="text" id="text" placeholder="Please enter the text to analyze" required></textarea>
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">A message is required to submit the form.</div>
+						<small id="titleHelp" class="form-text text-muted">We really appriciate your feedback and will get in touch soon.</small>
+					</fieldset>
+					<div class="form__buttons form-group">
+						<button class="form__button form__button-reset btn btn-danger" type="reset" name="reset" id="reset">Reset</button>
+						<button class="form__button form__button-submit btn btn-primary" type="submit" name="submit" id="submit">Submit</button>
+					</div>
+				</form>
+			</div>
+		</section>
+		<footer class="footer">
+			<div class="">
+				<img src="./imgs/logo.png" class="footer__logo" alt="logo">
+				<span class="footer__text">
+					<em>Developed</em> by <strong>Farhan Kiyani</strong>
+				</span>
+			</div>
+		</footer>
+        <script>
+            // Check that service workers are supported
+            if ('serviceWorker' in navigator) {
+                // Use the window load event to keep the page load performant
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js');
+                });
+            }
+        </script>
+	</body>
+</html>

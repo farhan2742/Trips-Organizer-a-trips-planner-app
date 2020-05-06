@@ -1,0 +1,28 @@
+body{
+	.page__section {
+		padding: 2rem 4rem  !important;
+		min-height: 100vh;
+
+		.section__heading{
+			margin-top: 20px;
+		}
+	}
+
+	.section__login {
+		background-image: url('http://localhost/sims/images/background.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.section__info {
+		color: black;
+	}
+
+	.section_video {
+		 background-color: rgba(0,0, 0, 0.8);
+	}
+}
+
+	
+
+	

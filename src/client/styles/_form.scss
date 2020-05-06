@@ -1,0 +1,13 @@
+.form__buttons {
+
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: flex-end;
+
+	.form__button{
+		padding-left:10px;
+		margin-left: 10px;
+	}
+
+}
