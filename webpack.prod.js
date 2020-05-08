@@ -7,22 +7,19 @@ const precss = require('precss');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+//const WorkboxPlugin = require('workbox-webpack-plugin');
 
 
 module.exports = {
 	node: {
         fs: 'empty'
     },
-	output: {
-		libraryTarget: 'var',
-		library: 'Client'
-	},
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    },
 	mode: 'production',
-	entry: [
-        'font-awesome/scss/font-awesome.scss',
-        './src/client/index.js'
-    ],
+	entry: './src/client/index.js',
 	optimization: {
 		minimizer: [
 			new TerserPlugin({}),
@@ -86,27 +83,21 @@ module.exports = {
                     'file-loader?name=imgs/[name].[ext]',
                     'image-webpack-loader?bypassOnDebug'
                 ]
-            },
-            {
-
-                test: /font-awesome\.config\.js/,
-
-                use: [
-
-                    { loader: 'style-loader' },
-
-                    { loader: 'font-awesome-loader' }
-
-                ]
-
             }
         ]
     },
 	plugins: [
+        new HtmlWebPackPlugin({
+            page: 'dashboard',
+            template: '!!ejs-webpack-loader!src/client/views/dashboard.ejs',
+            filename: "./dashboard.html"
+        }),
     	new HtmlWebPackPlugin({
-	        template: "./src/client/views/index.html",
-	        filename: "./index.html",
+            page: 'index',
+            template: '!!ejs-webpack-loader!src/client/views/index.ejs',
+            filename: "./index.html"
     	}),
+        
     	new CleanWebpackPlugin({
                 // Simulate the removal of files
                 dry: true,
@@ -117,6 +108,6 @@ module.exports = {
                 protectWebpackAssets: false
         }),
         new MiniCssExtractPlugin({ filename: '[name].css'}),
-        new WorkboxPlugin.GenerateSW()
+       // new WorkboxPlugin.GenerateSW()
 	]
 }

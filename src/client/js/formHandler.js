@@ -1,5 +1,7 @@
+
+import { fetchAPIdata } from './fetchAPIdata';
 function handleSubmit() {
-    Client.fetchCordinates();
+    fetchAPIdata();
     /*
 	const formAction = document.getElementById('form__actions').value;
 	switch(formAction) {

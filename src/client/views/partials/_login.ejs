@@ -1,0 +1,41 @@
+		<main class="page__section row align-items-center section__login " data-nav="Login" id="section__login">
+			<div class="login__form col-md-6 offset-md-3">
+				<h2 class="section__heading display-3 text-white text-center mb-5">
+					Please Login to start
+				</h2>
+				<form class="needs-validation" id="form_login" action="/dashboard" method="get">
+					<fieldset id="form__username" class="form-group">
+						<label for="userID" class="form__label sr-only sr-only-focusable">
+							Username:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="userID" id="userID" placeholder="Please Enter your username." class="form-control check__validation" required>
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This username does not exist.</div>
+						<small id="urlHelp" class="form-text text-light">If you dont have a username, please click the signup button on top right corner.</small>
+					</fieldset>
+					<fieldset id="form__password" class="form-group">
+						<label for="password" class="form__label sr-only sr-only-focusable">
+							Password:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
+							</div>
+							<input type="password" name="password" id="password" placeholder="Please enter your password" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">Password does not match the provided username.</div>
+						<small id="titleHelp" class="form-text text-light">If you want to demo the app without registering please use "demo" as username and password.</small>
+					</fieldset>
+					<div class="form__buttons form-group">
+						<button class="form__button form__button-reset btn btn-danger" type="reset" name="reset" id="reset">Reset</button>
+						<button class="form__button form__button-submit btn btn-primary" type="submit" name="login" id="login">Login</button>
+					</div>
+				</form>
+			</div>	
+		</main>

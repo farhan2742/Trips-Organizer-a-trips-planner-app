@@ -7,16 +7,15 @@ const postData = async (url = '', data={}) => {
 			'Content-Type': 'application/json;charset=UTF-8'
 		},
 		body: JSON.stringify({
-			heading: data.heading,
-			text: data.text,
-			url: data.url,
-			place: data.place
+			title: data.title,
+			destination: data.destination,
+			departureDate: data.departureDate,
+			returnDate: data.returnDate
 		})
 	});
 
 	try{
-		const newData = await req.json();
-		return newData;
+		console.log("Data sent");
 	}
 
 	catch(error){

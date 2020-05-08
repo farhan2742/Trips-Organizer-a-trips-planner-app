@@ -1,5 +1,5 @@
 function fetchCordinates() {
-	const cityName = document.getElementById("Location").value;
+	const cityName = document.getElementById("destination").value;
 	if (cityName !== "") {
 		Client.postData("/getCordinates", {
 			place: cityName

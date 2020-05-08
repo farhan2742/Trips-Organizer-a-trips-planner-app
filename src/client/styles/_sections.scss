@@ -1,3 +1,4 @@
+
 body{
 	.page__section {
 		padding: 2rem 4rem  !important;
@@ -9,9 +10,16 @@ body{
 	}
 
 	.section__login {
-		background-image: url('http://localhost/sims/images/background.jpg');
-		background-size: cover;
-		background-repeat: no-repeat;
+		
+ 		background: url("/imgs/background3.jpg") no-repeat center center fixed;
+ 		background-size: cover;
+  		background-blend-mode: darken;
+  		transition: 3s;
+
+  		.login__form{
+  			background: rgba(0,0, 0, 0.5);
+  			border-radius: 1rem;
+  		}
 	}
 
 	.section__info {
@@ -20,6 +28,41 @@ body{
 
 	.section_video {
 		 background-color: rgba(0,0, 0, 0.8);
+	}
+
+	.section__plan{
+		background: url("/imgs/destination3.jpg") no-repeat center center fixed;
+ 		background-size: cover;
+  		background-blend-mode: darken;
+  		transition: 3s;
+
+  		.plan__form{
+  			background: rgba(0,0, 0, 0.5);
+  			border-radius: 1rem;
+  		}
+	}
+
+	@media only screen and (max-device-width: 480px) {
+		.page__section {
+			padding: 2rem 0.5rem  !important;
+			min-height: 100vh;
+		}
+		.section__login{
+			margin-top: 25px;
+		}
+	}
+
+
+
+	@media only screen 
+	  and (min-device-width: 768px) 
+	  and (max-device-width: 1023px) 
+	  and (orientation: portrait) 
+	  and (-webkit-min-device-pixel-ratio: 1) {
+	  	.page__section {
+			padding: 2rem 1rem  !important;
+			min-height: 100vh;
+		}
 	}
 }
 

@@ -15,16 +15,13 @@ module.exports = {
     node: {
         fs: 'empty'
     },
-	output: {
-		libraryTarget: 'var',
-		library: 'Client'
-	},
 	mode: 'development',
     devtool: 'source-map',
-	entry: [
-    'font-awesome/scss/font-awesome.scss',
-    './src/client/index.js'
-    ],
+	entry: './src/client/index.js',
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    },
 	module: {
         rules: [
             {
@@ -88,27 +85,20 @@ module.exports = {
                     'file-loader?name=imgs/[name].[ext]',
                     'image-webpack-loader?bypassOnDebug'
                 ]
-            },
-            {
-
-                test: /font-awesome\.config\.js/,
-
-                use: [
-
-                    { loader: 'style-loader' },
-
-                    { loader: 'font-awesome-loader' }
-
-                ]
-
             }
     	]
     },
 	plugins: [
     	new HtmlWebPackPlugin({
-	        template: "./src/client/views/index.html",
-	        filename: "./index.html",
-    	}),
+            page: 'index',
+            template: '!!ejs-webpack-loader!src/client/views/index.ejs',
+            filename: "./index.html"
+        }),
+        new HtmlWebPackPlugin({
+            page: 'dashboard',
+            template: '!!ejs-webpack-loader!src/client/views/dashboard.ejs',
+            filename: "./dashboard.html"
+        }),
     	new CleanWebpackPlugin({
                 // Simulate the removal of files
                 dry: true,
@@ -121,7 +111,7 @@ module.exports = {
         new BundleAnalyzerPlugin({
         	analyzerMode: 'server',
         	analyzerPort: 'auto',
-        	openAnalyzer: true,
+        	openAnalyzer: false,
         	generateStatsFile: true,
         }),
         new webpack.HotModuleReplacementPlugin(),

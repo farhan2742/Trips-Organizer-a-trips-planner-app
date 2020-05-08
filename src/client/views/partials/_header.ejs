@@ -1,0 +1,46 @@
+		<header class="header navbar fixed-top navbar-expand-lg navbar-light bg-light" id="page__header">
+			<div class="header__main media navbar-brand">
+				<a href="#" class="navbar-brand">
+					<img src="imgs/logo.png" alt="logo" class="header__main__logo mr-3 align-self-center" id="logo" />
+					Trips Organizer
+				</a>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<% if (htmlWebpackPlugin.options.page === "index") { %>
+				<nav class="navbar__menu collapse navbar-collapse" id="navbarNav">
+		    		<!-- Navigation starts as empty UL that will be populated with JS -->
+		    		<ul id="navbar__list" class="nav nav-pills"></ul>
+		    		<form class="form-inline" action="/dashboard" method="get">
+						<button type="submit" class="btn btn-success dashboard__button" id="signup__button">Sign-Up</button>
+					</form>		
+		    	</nav>
+			<% } else if (htmlWebpackPlugin.options.page === "dashboard") { %>
+				<nav class="navbar__navigation collapse navbar-collapse" id="navbarNav">
+		    		<!-- Navigation starts as empty UL that will be populated with JS -->
+		    		<ul id="navbar__navigation__list" class="nav nav-pills">
+		    			<li class="nav-item active">
+		    				<a href="dashboard.html" class="nav-link active">Plan a Trip</a>
+		    			</li>
+		    			<li class="nav-item">
+		    				<a href="#" class="nav-link">Saved Trips</a>
+		    			</li>
+		    			<li class="nav-item">
+		    				<a href="#" class="nav-link">Upcoming Trips</a>
+		    			</li>
+		    			<li class="nav-item">
+		    				<a href="#" class="nav-link">Expired Trips</a>
+		    			</li>
+		    		</ul>
+		    		<form class="form-inline" action="/" method="get">
+						<button type="submit" class="btn btn-danger dashboard__button" id="logout__button">Logout</button>
+					</form>
+		    		
+		    	</nav>
+			<% } else { %>
+				
+			<% } %>
+		    
+		</header>

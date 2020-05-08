@@ -1,0 +1,57 @@
+		<section class="page__section section__contact row align-items-start" data-nav="Contact us" id="contact">
+			<div class = "tutorial__div col-md-8 offset-md-2">
+            	<h2 class="section__heading text-dark text-center">
+            		Contact US
+            	</h2>
+            	<p class="lead text-center">
+            		If you have any issues/suggestions about Trips Organizer or you want to contact the developer behind this app all you need to do is fill the form below and press send button.
+            	</p>
+            	<form class="needs-validation" id="form__contact">
+					<fieldset id="form__name" class="form-group">
+						<label for="name" class="form__label sr-only sr-only-focusable">
+							Username:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="name" id="name" placeholder="Please Enter your full name." class="form-control check__validation" required>
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This is not a vaild name.</div>
+					</fieldset>
+					<fieldset id="form__email" class="form-group">
+						<label for="title" class="form__label sr-only sr-only-focusable">
+							Email:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+							</div>
+							<input type="email" name="email" id="email" placeholder="Please enter your email address" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This is not a vaild email.</div>
+						<small id="titleHelp" class="form-text text-muted">We will never share your email address with any one.</small>
+					</fieldset>
+					<fieldset id="form__text" class="form__text form-group">
+						<label for="text" class="form__label sr-only sr-only-focusable">
+							Message
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-comment"></i></span>	
+							</div>
+							<textarea class="form__text form-control check__validation" rows="13" name="text" id="text" placeholder="Please enter the text to analyze" required></textarea>
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">A message is required to submit the form.</div>
+						<small id="titleHelp" class="form-text text-muted">We really appriciate your feedback and will get in touch soon.</small>
+					</fieldset>
+					<div class="form__buttons form-group">
+						<button class="form__button form__button-reset btn btn-danger" type="reset" name="resetContact" id="resetContact">Reset</button>
+						<button class="form__button form__button-submit btn btn-primary" type="submit" name="submit" id="submit">Submit</button>
+					</div>
+				</form>
+			</div>
+		</section>
