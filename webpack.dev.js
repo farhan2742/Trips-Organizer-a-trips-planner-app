@@ -90,14 +90,24 @@ module.exports = {
     },
 	plugins: [
     	new HtmlWebPackPlugin({
-            page: 'index',
-            template: '!!ejs-webpack-loader!src/client/views/index.ejs',
-            filename: "./index.html"
+            page: 'register',
+            template: '!!ejs-webpack-loader!src/client/views/trip.ejs',
+            filename: "./trip.html"
+        }),
+        new HtmlWebPackPlugin({
+            page: 'register',
+            template: '!!ejs-webpack-loader!src/client/views/register.ejs',
+            filename: "./register.html"
         }),
         new HtmlWebPackPlugin({
             page: 'dashboard',
             template: '!!ejs-webpack-loader!src/client/views/dashboard.ejs',
             filename: "./dashboard.html"
+        }),
+        new HtmlWebPackPlugin({
+            page: 'index',
+            template: '!!ejs-webpack-loader!src/client/views/index.ejs',
+            filename: "./index.html"
         }),
     	new CleanWebpackPlugin({
                 // Simulate the removal of files

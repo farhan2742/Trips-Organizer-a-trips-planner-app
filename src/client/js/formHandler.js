@@ -1,7 +1,13 @@
-
 import { fetchAPIdata } from './fetchAPIdata';
+import { updateUI } from './updateUI';
+
 function handleSubmit() {
-    fetchAPIdata();
+
+
+
+    fetchAPIdata()
+    updateUI();
+    
     /*
 	const formAction = document.getElementById('form__actions').value;
 	switch(formAction) {

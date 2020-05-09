@@ -1,0 +1,55 @@
+		<main class="page__section row align-items-center section__login " data-nav="Login" id="section__register">
+			<div class="login__form col-md-6 offset-md-3">
+				<h2 class="section__heading display-3 text-white text-center mb-5">
+					Welcome to the club!
+				</h2>
+				<form class="needs-validation" id="form_login" action="/register" method="post">
+					<fieldset id="form__username" class="form-group">
+						<label for="userID" class="form__label sr-only sr-only-focusable">
+							Username:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="userID" id="userID" placeholder="Please Enter a username." class="form-control check__validation" required>
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This username is already taken.</div>
+						<small id="urlHelp" class="form-text text-light">Please choose something that is easily rememberable by you.</small>
+					</fieldset>
+					<fieldset id="form__password" class="form-group">
+						<label for="password" class="form__label sr-only sr-only-focusable">
+							Password:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
+							</div>
+							<input type="password" name="password" id="password" placeholder="Please enter a password" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">Password does not meet the security criteria.</div>
+						<small id="titleHelp" class="form-text text-light">Please make sure your password is atleast 8 characters which include both uppercase / lower case alphabets and numbers.</small>
+					</fieldset>
+					<fieldset id="form__email" class="form-group">
+						<label for="title" class="form__label sr-only sr-only-focusable">
+							Email:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+							</div>
+							<input type="email" name="email" id="email" placeholder="Please enter your email address" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This is not a vaild email.</div>
+						<small id="titleHelp" class="form-text text-muted">We will never share your email address with any one.</small>
+					</fieldset>
+					<div class="form__buttons form-group">
+						<button class="form__button form__button-reset btn btn-danger" type="reset" name="reset" id="reset">Reset</button>
+						<button class="form__button form__button-submit btn btn-primary" type="submit" name="register" id="register">Register</button>
+					</div>
+				</form>
+			</div>	
+		</main>

@@ -41,11 +41,7 @@ import feature2 from './imgs/feature2.jpg'
 import feature3 from './imgs/feature3.jpg'
 import feature4 from './imgs/feature4.jpg'
 
-export {
-	postData,
-	updateUI,
-	fetchAPIdata,
-}
+
 
 
 //export { handleSubmit, postData, updateUI, buildMenu, notScrolling, changeBackground, fetchAPIdata };
@@ -57,6 +53,7 @@ function run(){
 		buildMenu();
 	}
 	
+	updateUI();
 
 
 	// Change the backgound images
@@ -74,6 +71,10 @@ function run(){
 		const ScrollToElement = document.querySelector(clicked.getAttribute("href"));
 	  	ScrollToElement.scrollIntoView({block: 'end', behavior: 'smooth'})}
 	  	);
+	
+		
+
+	
 }
 
 	// hide menu bar if scrolling stoped
@@ -87,7 +88,7 @@ function run(){
 		});
 	})
 
-
+	/*
 	// API call
 	if (document.getElementById('start')) {
 		const formSubmit = document.getElementById('start');
@@ -108,4 +109,5 @@ function run(){
 			}
 		});
 	}
+	*/
 document.addEventListener("DOMContentLoaded",run());

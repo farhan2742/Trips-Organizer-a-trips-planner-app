@@ -1,5 +1,7 @@
 import { postData } from './postData';
 
+
+
 function fetchAPIdata() {
 	const title = document.getElementById("title").value;
 	const destination = document.getElementById("destination").value;
@@ -11,12 +13,6 @@ function fetchAPIdata() {
 			destination: destination,
 			departureDate: departureDate,
 			returnDate: returnDate
-		}) 
-		.then(function (){
-			console.log("In Then")
-			postData("/fetchCurrentWeather", {
-				title: title,
-			}) 
 		})
 	} 
 

@@ -1,6 +1,9 @@
 const updateUI = async () => {
 	const request = await fetch("/all");
 	try {
+		const trips = await request.json();
+		console.log(trips.trips)
+		/*
 		const resultDiv = document.getElementById('results__holder');
 		let result = "";
 		const serverData = await request.json();
@@ -161,7 +164,7 @@ const updateUI = async () => {
 		
 		resultDiv.innerHTML = result
 
-				
+	*/			
 	} catch(error) {
 		console.log("error:" + error);
 	}
