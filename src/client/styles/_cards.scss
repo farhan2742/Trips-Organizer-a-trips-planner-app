@@ -1,9 +1,10 @@
-.section__cards {
-		
+.cards{
+	width: 18rem !important;
+	border: 0;
 
-
-	.cards{
-		width: 18rem !important;
-		border: 0;
+	.cards__image{
+		min-width: 178px;
+		max-height: 178px;
+		object-fit: cover;
 	}
 }

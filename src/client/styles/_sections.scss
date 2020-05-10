@@ -37,9 +37,20 @@ body{
   		transition: 3s;
 
   		.plan__form{
+  			margin-top: 80px;
   			background: rgba(0,0, 0, 0.5);
   			border-radius: 1rem;
   		}
+	}
+
+	.section__trips{
+		
+		.trip__holder{
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: space-around;
+		}
 	}
 
 	@media only screen and (max-device-width: 480px) {

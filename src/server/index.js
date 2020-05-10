@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
-let projectData = {};
+
 let path = require('path')
 const express = require('express');
 
@@ -27,7 +27,14 @@ app.set("view engine", "ejs");
 
 // Post routes
 
-
+let projectData = {'trips' : []};
+let users = [
+  { 
+    user : "demo", 
+    pass : "demo",
+    email : "demo@demo.com"
+  }
+];
 
 app.post("/fetchCordinates", async (req, res, body) => {
   const title = req.body.title;
@@ -39,109 +46,19 @@ app.post("/fetchCordinates", async (req, res, body) => {
     q: destination
   })
   .then(function(response){
-  	projectData[title] = {};
-  	projectData[title].title = title;
-    projectData[title].destination = destination
-    projectData[title].destinationCountry =response.geonames[0].countryName
-  	projectData[title].lat = response.geonames[0].lat;
-  	projectData[title].lng = response.geonames[0].lng;
-    projectData[title].departureDate = departureDate;
-    projectData[title].returnDate = returnDate;
-  	console.log(projectData);
-  	console.log("Latest trip: " + projectData[title].title);
-  })
-  .then(function () {
-    const baseURL = "https://api.weatherbit.io/v2.0/current?";
-    const ApiKey = `&key=${process.env.WEATHERBIT_API_KEY}`;
-    const lat = `lat=${projectData[title].lat}`;
-    const lon = `&lon=${projectData[title].lng}`;
-    const URL = baseURL+lat+lon+ApiKey;
-    console.log(URL);
-     https.get(URL,(rasp) => {
-      let data =  '';
-      rasp.on('data', (chunk) => {
-        data += chunk
-      })
-      rasp.on('end', () => {
-        const currentWeather = (JSON.parse(data));
-        const currentWeatherIcon = currentWeather.data[0].weather.icon
-        const currentWeatherDescription = currentWeather.data[0].weather.description
-        const currentWeatherWind = currentWeather.data[0].wind_spd
-        const currentWeatherTemp = currentWeather.data[0].temp
-        const currentWeatherUV = currentWeather.data[0].uv
-        const currentWeatherSnow = currentWeather.data[0].snow
-        projectData[title].currentWeather = {}
-        projectData[title].currentWeather.icon = currentWeatherIcon
-        projectData[title].currentWeather.description = currentWeatherDescription
-        projectData[title].currentWeather.wind = currentWeatherWind
-        projectData[title].currentWeather.temp = currentWeatherTemp
-        projectData[title].currentWeather.uv = currentWeatherUV
-        projectData[title].currentWeather.snow = currentWeatherSnow
-      })
-      rasp.on("error", (err) => {
-        console.log("Error: " + err.message)
-      })
-    })
-  })
-  .then(function () {
-    const baseURL = "https://api.weatherbit.io/v2.0/forecast/daily?";
-    const ApiKey = `&key=${process.env.WEATHERBIT_API_KEY}`;
-    const lat = `lat=${projectData[title].lat}`;
-    const lon = `&lon=${projectData[title].lng}`;
-    const URL = baseURL+lat+lon+ApiKey;
-    console.log(URL);
-     https.get(URL,(rasp) => {
-      let data =  '';
-      rasp.on('data', (chunk) => {
-        data += chunk
-      })
-      rasp.on('end', () => {
-        const forcastWeather = (JSON.parse(data));
-        projectData[title].forcastWeather = []
-        for (var i = 0; i < forcastWeather.data.length; i++) {
-
-          let forcastWeatherIcon = forcastWeather.data[i].weather.icon
-          let forcastWeatherDescription = forcastWeather.data[i].weather.description
-          let forcastWeatherWind = forcastWeather.data[i].wind_spd
-          let forcastWeatherTemp = forcastWeather.data[i].temp
-          let forcastWeatherUV = forcastWeather.data[i].uv
-          let forcastWeatherSnow = forcastWeather.data[i].snow
-          let forcastDate = forcastWeather.data[i].datetime         
-          projectData[title].forcastWeather[forcastDate] = [];
-          projectData[title].forcastWeather[forcastDate].icon = forcastWeatherIcon
-          projectData[title].forcastWeather[forcastDate].description = forcastWeatherDescription
-          projectData[title].forcastWeather[forcastDate].wind = forcastWeatherWind
-          projectData[title].forcastWeather[forcastDate].temp = forcastWeatherTemp
-          projectData[title].forcastWeather[forcastDate].uv = forcastWeatherUV
-          projectData[title].forcastWeather[forcastDate].snow = forcastWeatherSnow
-          
-        }
-      })
-      rasp.on("error", (err) => {
-        console.log("Error: " + err.message)
-      })
-    })
-  })
-  .then(function () {
-    const baseURL = "https://pixabay.com/api/?";
-    const ApiKey = `key=${process.env.PIXABAY_API_KEY}`;
-    const query = `&q=${projectData[title].destination}`;
-    const options = `&category=places&image_type=photo&safesearch=true}`;
-    const URL = baseURL+ApiKey+query+options;
-    console.log(URL);
-     https.get(URL,(rasp) => {
-      let data =  '';
-      rasp.on('data', (chunk) => {
-        data += chunk
-      })
-      rasp.on('end', () => {
-        const destinationImage = (JSON.parse(data));
-        projectData[title].imageURL = destinationImage.hits[0].webformatURL
-      })
-      rasp.on("error", (err) => {
-        console.log("Error: " + err.message)
-      })
-    })
+    const data = {}
+    data.title = title;
+    data.destination = destination
+    data.destinationCountry =response.geonames[0].countryName
+    data.lat = response.geonames[0].lat;
+    data.lng = response.geonames[0].lng;
+    data.departureDate = departureDate;
+    data.returnDate = returnDate;
+    data.imageURL = "";
+    data.currentWeather = []
+    data.forcastWeather = []
+    projectData.trips.push(data);
+    res.redirect(307,'/fetchCurrentWeather')
   })
   .catch(function(error){
     console.log(error);
@@ -150,78 +67,62 @@ app.post("/fetchCordinates", async (req, res, body) => {
 
 
 app.post("/fetchCurrentWeather", async (req, res, body) => {
+  const currentTrip = projectData.trips.length - 1; 
   const baseURL = "https://api.weatherbit.io/v2.0/current?";
-    const ApiKey = `&key=${process.env.WEATHERBIT_API_KEY}`;
-    const lat = `lat=${projectData[title].lat}`;
-    const lon = `&lon=${projectData[title].lng}`;
-    const URL = baseURL+lat+lon+ApiKey;
-    const title = req.body.title;
-    console.log(URL);
-     https.get(URL,(rasp) => {
-      let data =  '';
-      rasp.on('data', (chunk) => {
-        data += chunk
-      })
-      rasp.on('end', () => {
-        //JSON.stringify(data);
-        const currentWeather = (JSON.parse(data));
-        const currentWeatherIcon = currentWeather.data[0].weather.icon
-        const currentWeatherDescription = currentWeather.data[0].weather.description
-        const currentWeatherWind = currentWeather.data[0].wind_spd
-        const currentWeatherTemp = currentWeather.data[0].temp
-        const currentWeatherUV = currentWeather.data[0].uv
-        const currentWeatherSnow = currentWeather.data[0].snow
-        projectData[title].currentWeather = {}
-        projectData[title].currentWeather.icon = currentWeatherDescription
-        projectData[title].currentWeather.description = currentWeatherDescription
-        projectData[title].currentWeather.wind = currentWeatherWind
-        projectData[title].currentWeather.temp = currentWeatherTemp
-        projectData[title].currentWeather.uv = currentWeatherUV
-        projectData[title].currentWeather.snow = currentWeatherSnow
-        console.log();
-      })
-      rasp.on("error", (err) => {
-        console.log("Error: " + err.message)
-      })
+  const ApiKey = `&key=${process.env.WEATHERBIT_API_KEY}`;
+  const lat = `lat=${projectData.trips[currentTrip].lat}`;
+  const lon = `&lon=${projectData.trips[currentTrip].lng}`;
+  const URL = baseURL+lat+lon+ApiKey;
+  https.get(URL,(rasp) => {
+    let data =  '';
+    rasp.on('data', (chunk) => {
+      data += chunk
     })
+    rasp.on('end', () => {
+      const currentWeather = (JSON.parse(data));
+      const currentData = {}
+      currentData.currentWeatherIcon = currentWeather.data[0].weather.icon
+      currentData.currentWeatherDescription = currentWeather.data[0].weather.description
+      currentData.currentWeatherWind = currentWeather.data[0].wind_spd
+      currentData.currentWeatherTemp = currentWeather.data[0].temp
+      currentData.currentWeatherUV = currentWeather.data[0].uv
+      currentData.currentWeatherSnow = currentWeather.data[0].snow
+      projectData.trips[currentTrip].currentWeather.push(currentData)
+      res.redirect(307 ,'/fetchForcastWeather')
+    })
+    rasp.on("error", (err) => {
+      console.log("Error: " + err.message)
+    })
+  })
 });
 
 
 app.post("/fetchForcastWeather", async (req, res, body) => {
-  const title = req.body.title;
+  const currentTrip = projectData.trips.length - 1; 
   const baseURL = "https://api.weatherbit.io/v2.0/forecast/daily?";
   const ApiKey = `&key=${process.env.WEATHERBIT_API_KEY}`;
-  const lat = `lat=${projectData[title].lat}`;
-  const lon = `&lon=${projectData[title].lng}`;
+  const lat = `lat=${projectData.trips[currentTrip].lat}`;
+  const lon = `&lon=${projectData.trips[currentTrip].lng}`;
   const URL = baseURL+lat+lon+ApiKey;
-  console.log(URL);
-   https.get(URL,(rasp) => {
+  https.get(URL,(rasp) => {
     let data =  '';
     rasp.on('data', (chunk) => {
       data += chunk
     })
     rasp.on('end', () => {
       const forcastWeather = (JSON.parse(data));
-      projectData[title].forcastWeather = []
       for (var i = 0; i < forcastWeather.data.length; i++) {
-
-        let forcastWeatherIcon = forcastWeather.data[i].weather.icon
-        let forcastWeatherDescription = forcastWeather.data[i].weather.description
-        let forcastWeatherWind = forcastWeather.data[i].wind_spd
-        let forcastWeatherTemp = forcastWeather.data[i].temp
-        let forcastWeatherUV = forcastWeather.data[i].uv
-        let forcastWeatherSnow = forcastWeather.data[i].snow
-        let forcastDate = forcastWeather.data[i].datetime         
-        projectData[title].forcastWeather[forcastDate] = [];
-        projectData[title].forcastWeather[forcastDate].icon = forcastWeatherIcon
-        projectData[title].forcastWeather[forcastDate].description = forcastWeatherDescription
-        projectData[title].forcastWeather[forcastDate].wind = forcastWeatherWind
-        projectData[title].forcastWeather[forcastDate].temp = forcastWeatherTemp
-        projectData[title].forcastWeather[forcastDate].uv = forcastWeatherUV
-        projectData[title].forcastWeather[forcastDate].snow = forcastWeatherSnow
-        
+        forcastWeatherData = []
+        forcastWeatherData.push(forcastWeather.data[i].datetime)
+        forcastWeatherData.push(forcastWeather.data[i].weather.icon)
+        forcastWeatherData.push(forcastWeather.data[i].weather.description)
+        forcastWeatherData.push(forcastWeather.data[i].wind_spd)
+        forcastWeatherData.push(forcastWeather.data[i].temp)
+        forcastWeatherData.push(forcastWeather.data[i].uv) 
+        forcastWeatherData.push(forcastWeather.data[i].snow)
+        projectData.trips[currentTrip].forcastWeather.push(forcastWeatherData)
       }
-      
+      res.redirect(307,'/fetchDestinationImage')
     })
     rasp.on("error", (err) => {
       console.log("Error: " + err.message)
@@ -230,21 +131,44 @@ app.post("/fetchForcastWeather", async (req, res, body) => {
 });
 
 app.post("/fetchDestinationImage", async (req, res, body) => {
-  const title = req.body.title;
+  const currentTrip = projectData.trips.length - 1;
   const baseURL = "https://pixabay.com/api/?";
   const ApiKey = `key=${process.env.PIXABAY_API_KEY}`;
-  const query = `&q=${projectData[title].destination}`;
+  const query = `&q=${projectData.trips[currentTrip].destination}`;
   const options = `&category=places&image_type=photo&safesearch=true}`;
   const URL = baseURL+ApiKey+query+options;
-  console.log(URL);
-   https.get(URL,(rasp) => {
+  https.get(URL,(rasp) => {
     let data =  '';
     rasp.on('data', (chunk) => {
       data += chunk
     })
     rasp.on('end', () => {
       const destinationImage = (JSON.parse(data));
-      projectData[title].imageURL = destinationImage.hits[0].webformatURL
+      if (destinationImage.hits.length === 0) {
+        const queryCountry = `&q=${projectData.trips[currentTrip].destinationCountry}`;
+        const URLCountry = baseURL+ApiKey+queryCountry+options;
+        https.get(URLCountry,(rasp) => {
+          let data =  '';
+          rasp.on('data', (chunk) => {
+            data += chunk
+          })
+          rasp.on('end', () => {
+            const destinationImageCountry = (JSON.parse(data));
+            if (destinationImageCountry.hits.length === 0) {
+              projectData.trips[currentTrip].imageURL = "";
+              res.redirect("back")
+            }
+            projectData.trips[currentTrip].imageURL = destinationImageCountry.hits[0].webformatURL
+             res.redirect("back")
+          })
+          rasp.on("error", (err) => {
+            console.log("Error: " + err.message)
+          })
+        })
+      } else {
+        projectData.trips[currentTrip].imageURL = destinationImage.hits[0].webformatURL
+        res.redirect("back")
+      }
     })
     rasp.on("error", (err) => {
       console.log("Error: " + err.message)
@@ -253,12 +177,34 @@ app.post("/fetchDestinationImage", async (req, res, body) => {
 });
 
 
+app.post("/auth", async (req, res, body) => {
+  const userID = req.body.userID;
+  const userPassword = req.body.password;
+  for (var i = 0; i < users.length; i++) {
+    let username = users[i].user;
+    let password = users[i].pass;
+    if ((userID === username) && (userPassword === password)) {
+      res.redirect("/dashboard?auth=success")
+    }
+  }
+  res.redirect("/?auth=failed")
+});
+
+app.post('/register', function (req, res) {
+    const newUser = {}
+    newUser.user = req.body.userID;
+    newUser.pass = req.body.password;
+    newUser.email = req.body.email;
+    users.push(newUser)
+    console.log(projectData)
+    res.redirect("/?register=success")
+});
 
 // Get routes
 
 
 app.get('/', function (req, res) {
-    res.sendFile('dist/index.html')
+    res.sendFile('dist/index.html' , { root: __dirname + '/../../' })
 });
 
 
@@ -266,13 +212,21 @@ app.get('/dashboard', function (req, res) {
    res.sendFile('dist/dashboard.html', { root: __dirname + '/../../' })
 });
 
-
+app.get('/register', function (req, res) {
+    res.sendFile('dist/register.html' , { root: __dirname + '/../../' })
+});
 
 app.get("/all", sendInfo);
 
 function sendInfo(req, res) {
-	res.send(projectData);
+  res.send(projectData);
 }
+
+app.get('*', function (req, res) {
+   res.send("ERROR404: Page not found")
+});
+
+
 
 // designates what port the app will listen to for incoming requests
 app.listen(process.env.PORT, process.env.IP, function () {
