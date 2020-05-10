@@ -1,0 +1,69 @@
+		<main class="page__section row align-items-center section__trip" data-nav="Login" id="section__trip">
+			<div class="plan__form col-md-6 offset-md-3">
+				<h2 class="section__heading display-3 text-white text-center mb-5" id="trip__name">
+					Trip Title
+				</h2>
+				<form class="needs-validation" id="plan" action="/fetchCordinates" method="post">
+					<fieldset id="plan__form__name" class="form-group">
+						<label for="title" class="form__label sr-only sr-only-focusable">
+							Trip Name:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-tag"></i></span>
+							</div>
+							<input type="text" name="title" id="title" placeholder="Please give your trip a memorable name." class="form-control check__validation" required>
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This name is not valid.</div>
+						<small id="urlHelp" class="form-text text-light">This name will be used as a title for this trip so you can use it to view your plans.</small>
+					</fieldset>
+					<fieldset id="plan__form__destination" class="form-group">
+						<label for="destination" class="form__label sr-only sr-only-focusable">
+							Destination:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked-alt"></i></span>
+							</div>
+							<input type="text" name="destination" id="destination" placeholder="Please enter your trip destination" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This is not a valid location name.</div>
+						<small id="titleHelp" class="form-text text-light">This is the name of the place that you are going to visit on this amazing trip.</small>
+					</fieldset>
+					<fieldset id="plan__form__departure" class="form-group">
+						<label for="departureDate" class="form__label sr-only sr-only-focusable">
+							Departure Date:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-plane-departure"></i></span>
+							</div>
+							<input type="date" name="departureDate" id="departureDate" placeholder="Please your departure date" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">Plase select a valid date.</div>
+						<small id="titleHelp" class="form-text text-light">This is the date will be used to lookup weather forcasts and other information to make your planing easier.</small>
+					</fieldset>
+					<fieldset id="plan__form__return" class="form-group">
+						<label for="returnDate" class="form__label sr-only sr-only-focusable">
+							Return Date:
+						</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-plane-arrival"></i></span>
+							</div>
+							<input type="date" name="returnDate" id="returnDate" placeholder="Please your return date" class="form-control check__validation" required />
+						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">Plase select a valid date.</div>
+						<small id="titleHelp" class="form-text text-light">This will be used to provide useful information like transportation options.</small>
+					</fieldset>
+					<div class="form__buttons form-group">
+						<button class="form__button form__button-reset btn btn-danger" type="reset" name="reset" id="reset">Reset</button>
+						<button class="form__button form__button-submit btn btn-primary" type="submit" name="start" id="start">Start</button>
+					</div>
+				</form>
+			</div>	
+		</main>
