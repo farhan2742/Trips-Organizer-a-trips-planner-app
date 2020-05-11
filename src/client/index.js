@@ -5,6 +5,7 @@ import { buildMenu } from './js/buildMenu';
 import { notScrolling } from './js/notScrolling';
 import { changeBackground } from './js/changeBackground'
 import { fetchAPIdata } from './js/fetchAPIdata';
+import { saveLocal } from './js/saveLocal';
 
 
 
@@ -52,8 +53,11 @@ function run(){
 	if (document.querySelector(".navbar__menu")) {
 		buildMenu();
 	}
+	saveLocal()
+	.then(function() {
+		updateUI();
+	})
 	
-	updateUI();
 
 
 	// Change the backgound images

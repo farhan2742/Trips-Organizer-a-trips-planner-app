@@ -209,6 +209,10 @@ app.get('/', function (req, res) {
 
 
 app.get('/dashboard', function (req, res) {
+   console.log(req.query)
+   if (req.query.auth != "success") {
+    res.redirect("/?auth=failed");
+   }
    res.sendFile('dist/dashboard.html', { root: __dirname + '/../../' })
 });
 
