@@ -9,31 +9,18 @@
 			    <span class="navbar-toggler-icon"></span>
 			</button>
 			
-			<% if (htmlWebpackPlugin.options.page === "index") { %>
+			<% if(htmlWebpackPlugin.options.page === "index") { %>
 				<nav class="navbar__menu collapse navbar-collapse" id="navbarNav">
 		    		<!-- Navigation starts as empty UL that will be populated with JS -->
 		    		<ul id="navbar__list" class="nav nav-pills"></ul>
-		    		<form class="form-inline" action="/register" method="get">
+		    		<form class="form-inline" action="/user" method="get">
 						<button type="submit" class="btn btn-success dashboard__button" id="signup__button">Sign-Up</button>
 					</form>		
 		    	</nav>
-			<% } else if (htmlWebpackPlugin.options.page === "dashboard") { %>
-				<nav class="navbar__navigation collapse navbar-collapse" id="navbarNav">
+			<% } else if (htmlWebpackPlugin.options.page === "trips") { %>
+				<nav class="navbar__menu collapse navbar-collapse" id="navbarNav">
 		    		<!-- Navigation starts as empty UL that will be populated with JS -->
-		    		<ul id="navbar__navigation__list" class="nav nav-pills">
-		    			<li class="nav-item active">
-		    				<a href="#section__plan" class="nav-link active">Plan a Trip</a>
-		    			</li>
-		    			<li class="nav-item">
-		    				<a href="#ongoing__trips" class="nav-link">Ongoing Trips</a>
-		    			</li>
-		    			<li class="nav-item">
-		    				<a href="#upcoming-trips" class="nav-link">Upcoming Trips</a>
-		    			</li>
-		    			<li class="nav-item">
-		    				<a href="#expired__trips" class="nav-link">Expired Trips</a>
-		    			</li>
-		    		</ul>
+		    		<ul id="navbar__list" class="nav nav-pills"></ul>
 		    		<form class="form-inline" action="/" method="get">
 						<button type="submit" class="btn btn-danger dashboard__button" id="logout__button">Logout</button>
 					</form>

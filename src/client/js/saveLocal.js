@@ -1,26 +1,19 @@
 const saveLocal = async () => {
-	const request = await fetch("/all");
+	const request = await fetch("/fetchData");
 	try {
 		const serverData = await request.json();
-
-		if (serverData.trips.length > 0) {
+		if (serverData.length > 0) {
 			if (localStorage.trips) {
-				let TempData = JSON.parse(localStorage.getItem('trips')) || [];
-				const newData = serverData.trips[serverData.trips.length - 1]
 				const dub = localStorage.getItem('dub');
-				const dubCheck = JSON.stringify(newData)
-				console.log(dubCheck)
+				const dubCheck = JSON.stringify(serverData[serverData.length-1])
 				if (dub !== dubCheck) {
-					TempData.push(newData)
-					const dublicateChecker = TempData[TempData.length - 1]
+					const dublicateChecker = JSON.stringify(serverData[serverData.length-1])
 					localStorage.setItem('dub', JSON.stringify(dublicateChecker));
-					localStorage.setItem('trips', JSON.stringify(TempData));
+					localStorage.setItem('trips', JSON.stringify(serverData));
 				}
-
 			} else {
-				localStorage.setItem('trips', JSON.stringify(serverData.trips));
+				localStorage.setItem('trips', JSON.stringify(serverData));
 			}
-			
 		}
 	} catch(error) {
 		console.log("error:" + error);

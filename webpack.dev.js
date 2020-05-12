@@ -90,7 +90,17 @@ module.exports = {
     },
 	plugins: [
     	new HtmlWebPackPlugin({
-            page: 'register',
+            page: 'new',
+            template: '!!ejs-webpack-loader!src/client/views/new.ejs',
+            filename: "./new.html"
+        }),
+        new HtmlWebPackPlugin({
+            page: 'edit',
+            template: '!!ejs-webpack-loader!src/client/views/trip.ejs',
+            filename: "./edit.html"
+        }),
+        new HtmlWebPackPlugin({
+            page: 'trip',
             template: '!!ejs-webpack-loader!src/client/views/trip.ejs',
             filename: "./trip.html"
         }),
@@ -100,23 +110,14 @@ module.exports = {
             filename: "./register.html"
         }),
         new HtmlWebPackPlugin({
-            page: 'dashboard',
-            template: '!!ejs-webpack-loader!src/client/views/dashboard.ejs',
-            filename: "./dashboard.html"
+            page: 'trips',
+            template: '!!ejs-webpack-loader!src/client/views/trips.ejs',
+            filename: "./trips.html"
         }),
         new HtmlWebPackPlugin({
             page: 'index',
             template: '!!ejs-webpack-loader!src/client/views/index.ejs',
             filename: "./index.html"
-        }),
-    	new CleanWebpackPlugin({
-                // Simulate the removal of files
-                dry: true,
-                // Write Logs to Console
-                verbose: true,
-                // Automatically remove all unused webpack assets on rebuild
-                cleanStaleWebpackAssets: true,
-                protectWebpackAssets: false
         }),
         new BundleAnalyzerPlugin({
         	analyzerMode: 'server',
