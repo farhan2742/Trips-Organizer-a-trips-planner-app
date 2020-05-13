@@ -1,9 +1,9 @@
-		<main class="page__section row pt-0 section__trip__new" data-nav="Login" id="section__trip__view">	
+		<main class="page__section row pt-0 section__trip__new" data-nav="Login" id="section__trip__new">	
 			<div class="col-md-7 pr-4 align-items-center main__content">
 				<h2 class="trip__heading display-4 text-dark text-center mb-5" id="trip__title">
 					Trip Title
 				</h2>
-				<form class="needs-validation" id="plan" action="/trips" method="post">
+				<form class="needs-validation" id="plan" action="/trips/save?new=true" method="post">
 					<fieldset id="plan__form__destination" class="form-group">
 						<label for="destination" class="form__label sr-only sr-only-focusable">
 							Departure:
@@ -12,8 +12,11 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked-alt"></i></span>
 							</div>
-							<input type="text" name="departure" id="departure" placeholder="Please enter your trip departure location" class="form-control" disabled />
+							<input type="text" name="departure" id="departure" placeholder="Please enter your trip departure location" class="form-control check__validation" />
 						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This is not a valid location name.</div>
+						<small id="titleHelp" class="form-text text-light">This is not required but is helpful</small>
 					</fieldset>
 					<fieldset id="plan__form__destination" class="form-group">
 						<label for="destination" class="form__label sr-only sr-only-focusable">
@@ -23,8 +26,13 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked-alt"></i></span>
 							</div>
-							<input type="text" name="destination" id="destination" placeholder="Please enter your trip destination" class="form-control" disabled />
+							<input type="text" name="destination" id="destination" placeholder="Please enter your trip destination" class="form-control check__validation" required />
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="button">Add Stops</button>
+							</div>
 						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">This is not a valid location name.</div>
 					</fieldset>
 					<fieldset id="plan__form__departure" class="form-group">
 						<label for="departureDate" class="form__label sr-only sr-only-focusable">
@@ -34,8 +42,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1"><i class="fas fa-plane-departure"></i></span>
 							</div>
-							<input type="date" name="departureDate" id="departureDate" placeholder="Please your departure date" class="form-control" disabled />
+							<input type="date" name="departureDate" id="departureDate" placeholder="Please your departure date" class="form-control check__validation" required />
 						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">Plase select a valid date.</div>
 					</fieldset>
 					<fieldset id="plan__form__return" class="form-group">
 						<label for="returnDate" class="form__label sr-only sr-only-focusable">
@@ -45,16 +55,17 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1"><i class="fas fa-plane-arrival"></i></span>
 							</div>
-							<input type="date" name="returnDate" id="returnDate" placeholder="Please your return date" class="form-control" disabled />
+							<input type="date" name="returnDate" id="returnDate" placeholder="Please your return date" class="form-control check__validation" required />
 						</div>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">Plase select a valid date.</div>
 					</fieldset>
 					<div class="form__buttons form-group">
-						<a class="btn btn btn-outline-secondary" href="/trips?auth=success">Back</a>
-						<button class="form__button btn btn-danger" type="button" name="delete" id="delete__button">Delete</button>
-						<button class="form__button form__button-submit btn btn-primary" type="submit" name="edit" id="edit__button">Edit</button>
+						<a class="form__button form__button-reset btn btn-danger" href="/trips?auth=success">Cancel</a>
+						<button class="form__button form__button-submit btn btn-primary" type="submit" name="start" id="start">Save</button>
 					</div>
 				</form>
-				<div class="forcast__weather text-center" id="forcast__weather">
+				<div class="forcast__weather" id="forcast__weather">
 					<h3>
 						Weather Forcast
 					</h3>
@@ -63,7 +74,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 text-center" id="sidebar">
+			<div class="col-md-3 " id="sidebar">
 				<div side__content align-items-center collapse id="side__content">
 					
 				</div>

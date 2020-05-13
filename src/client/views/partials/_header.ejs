@@ -1,7 +1,7 @@
 		<header class="header navbar fixed-top navbar-expand-lg navbar-light bg-light" id="page__header">
 			<div class="header__main media navbar-brand">
 				<a href="#" class="navbar-brand">
-					<img src="imgs/logo.png" alt="logo" class="header__main__logo mr-3 align-self-center" id="logo" />
+					<img src="/imgs/logo.png" alt="logo" class="header__main__logo mr-3 align-self-center" id="logo" />
 					Trips Organizer
 				</a>
 			</div>
@@ -24,10 +24,13 @@
 		    		<form class="form-inline" action="/" method="get">
 						<button type="submit" class="btn btn-danger dashboard__button" id="logout__button">Logout</button>
 					</form>
-		    		
 		    	</nav>
 			<% } else { %>
-				
+				<nav class="navbar__menu collapse navbar-collapse" id="navbarNav">
+		    		<form class="form-inline" action="/" method="get">
+						<button type="submit" class="btn btn-danger dashboard__button" id="logout__button">Logout</button>
+					</form>	
+		    	</nav>
 			<% } %>
 		    
 		</header>

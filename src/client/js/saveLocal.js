@@ -10,6 +10,7 @@ const saveLocal = async () => {
 					const dublicateChecker = JSON.stringify(serverData[serverData.length-1])
 					localStorage.setItem('dub', JSON.stringify(dublicateChecker));
 					localStorage.setItem('trips', JSON.stringify(serverData));
+					console.log("finished")
 				}
 			} else {
 				localStorage.setItem('trips', JSON.stringify(serverData));
