@@ -1,5 +1,6 @@
 
 body{
+
 	.page__section {
 		padding: 2rem 4rem  !important;
 		min-height: 100vh;
@@ -53,6 +54,10 @@ body{
 		}
 	}
 
+	.section__trip__new {
+		padding-top:80px !important;
+	}
+
 	@media only screen and (max-device-width: 480px) {
 		.page__section {
 			padding: 2rem 0.5rem  !important;
@@ -60,6 +65,10 @@ body{
 		}
 		.section__login{
 			margin-top: 25px;
+		}
+		.section__trip__new {
+		padding-top:80px !important;
+		text-align: center;
 		}
 	}
 
@@ -73,6 +82,9 @@ body{
 	  	.page__section {
 			padding: 2rem 1rem  !important;
 			min-height: 100vh;
+		}
+		.section__trip__new {
+			padding-top:80px !important;
 		}
 	}
 }

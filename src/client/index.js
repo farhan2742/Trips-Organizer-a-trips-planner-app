@@ -49,16 +49,20 @@ import feature4 from './imgs/feature4.jpg'
 
 function run(){
 
+	if (document.querySelector("#section__plan")) {
+		saveLocal()
+		.then(function() {
+			updateUI();
+		})
+	} else if ((!document.querySelector("#section__register")) || (!document.querySelector("#section__login"))) {
+		updateUI();
+	}
+
+
 	// build the nav
 	if (document.querySelector(".navbar__menu")) {
 		buildMenu();
 	}
-	saveLocal()
-	.then(function() {
-		updateUI();
-	})
-	
-
 
 	// Change the backgound images
 
