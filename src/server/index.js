@@ -1,29 +1,47 @@
-const dotenv = require('dotenv');
+// Set dependancies
+
+// Set dependancies
+
+const dotenv              = require('dotenv'),
+      express             = require('express'),
+      bodyParser          = require('body-parser'),
+      cors                = require('cors'),
+      path                = require('path'),
+      GeocoderGeonames    = require('geocoder-geonames'),
+      async               = require('express-async-await'),
+      fetch               = require('node-fetch'),
+      https               = require("https"),
+      mongoose            = require("mongoose"),
+      {flightSchema, Flight}    = require('./models/flight.js'),
+      {hotelSchema, Hotel}    = require('./models/hotel.js'),
+      {weatherSchema, Weather}  = require('./models/weather.js'),
+      {countrySchema, Country}  = require('./models/country.js'),
+      {tripSchema, Trip}        = require('./models/trip.js'),
+      {userSchema, User}        = require('./models/user.js');
+      seedDB              = require("./seeds")
+
+// config dependancies
+
+// dot ENV
 dotenv.config();
-
-let path = require('path')
-const express = require('express');
-var mongoose = require("mongoose")
+// Express
 const app = express();
-
-const GeocoderGeonames = require('geocoder-geonames');
+app.use(express.static('dist'));
+// Body Parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+// CORS
+app.use(cors());
+// Geocoder
 const geocoder = new GeocoderGeonames({
 	username: process.env.GEONAMES_API_ID
 });
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-const cors = require('cors');
-app.use(cors());
-const async  = require('express-async-await');
-const fetch = require('node-fetch');
-const https = require("https");
-
-app.use(express.static('dist'));
 
 //app.set('views', path.join(__dirname, '../client/views'));
 //app.set("view engine", "ejs");
+
+// Connect DB
 
 const DBUser = process.env.DB_USERNAME
 const DBPass = process.env.DB_PASSWORD
@@ -31,90 +49,9 @@ const DBUrl = `mongodb+srv://${DBUser}:${DBPass}@cluster0-kzsic.mongodb.net/trip
 
 mongoose.connect(DBUrl)
 
-const weatherSchema = new mongoose.Schema({
-  weatherDate: String,
-  weatherIcon: String,
-  weatherDescription: String,
-  weatherWind: Number,
-  weatherTemp: Number,
-  weatherUV: Number,
-  weatherSnow: Number
-})
+// App temp data storage
 
-const Weather = mongoose.model("Weather", weatherSchema)
-
-const countrySchema = new mongoose.Schema({
-  name: String,
-  capital: String,
-  region: String,
-  population: Number,
-  area: Number,
-  timezones: Array,
-  currencies: Array,
-  flag: String
-})
-
-const Country = mongoose.model("Country", countrySchema)
-
-const flightSchema = new mongoose.Schema({
-  flight: String,
-  confirmation: String,
-  gate: String,
-  class: String,
-  status: String,
-  departure: String,
-  arival: String,
-})
-
-const Flight = mongoose.model("Flight", flightSchema)
-
-const hotelSchema = new mongoose.Schema({
-  name: String,
-  confirmation: String,
-  address: String,
-  checkin: String,
-  checkout: String,
-  stay: String,
-  room: String,
-})
-
-const Hotel = mongoose.model("Hotel", hotelSchema)
-
-
-const tripSchema = new mongoose.Schema({
-  title: String,
-  departure: String,
-  stops: Array,
-  destination: String,
-  destinationCountry: String,
-  lat: String,
-  lng: String,
-  departureDate: String,
-  returnDate: String,
-  imageURL: String,
-  packing: Array,
-  toDo: Array,
-  flight: [flightSchema],
-  hotel: [hotelSchema],
-  currentWeather: weatherSchema,
-  forcastWeather: [weatherSchema],
-  countryData: countrySchema
-})
-
-const Trip = mongoose.model("Trip", tripSchema)
-
-const userSchema = new mongoose.Schema({
-  user: String,
-  pass: String,
-  email: String,
-  trips: [tripSchema]
-})
-
-const User = mongoose.model("User", userSchema)
-
-
-
-// Post routes
+seedDB();
 
 let projectData = {'trips' : []};
 
@@ -129,6 +66,8 @@ User.find({}, function (err, usersData) {
 });
 
 let users = [];
+
+// Post routes
 
 app.post("/trips", (req, res , body) => {
   projectData = {'trips' : []};
