@@ -69,7 +69,11 @@ module.exports = {
         				},
 					}
         		]
-    		},
+            },
+            {
+                test: /bootstrap\/dist\/js\/umd\//, 
+                use: 'imports-loader?jQuery=jquery'
+            },
     		{
                 test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 use: 'url-loader?limit=10000',
@@ -118,10 +122,6 @@ module.exports = {
             template: '!!ejs-webpack-loader!src/client/views/trip.ejs',
             filename: "./edit.html"
         }),
-        
-        
-        
-    	        
     	new CleanWebpackPlugin({
                 // Simulate the removal of files
                 dry: true,
@@ -132,6 +132,23 @@ module.exports = {
                 protectWebpackAssets: false
         }),
         new MiniCssExtractPlugin({ filename: '[name].css'}),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+            Alert: 'exports-loader?Alert!bootstrap/js/dist/alert',
+            Button: 'exports-loader?Button!bootstrap/js/dist/button',
+            Carousel: 'exports-loader?Carousel!bootstrap/js/dist/carousel',
+            Collapse: 'exports-loader?Collapse!bootstrap/js/dist/collapse',
+            Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown',
+            Modal: 'exports-loader?Modal!bootstrap/js/dist/modal',
+            Popover: 'exports-loader?Popover!bootstrap/js/dist/popover',
+            Scrollspy: 'exports-loader?Scrollspy!bootstrap/js/dist/scrollspy',
+            Tab: 'exports-loader?Tab!bootstrap/js/dist/tab',
+            Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
+            Util: 'exports-loader?Util!bootstrap/js/dist/util'
+        }),
        // new WorkboxPlugin.GenerateSW()
 	]
 }
