@@ -1,24 +1,26 @@
 // Set dependancies
 
-// Set dependancies
+const dotenv                = require('dotenv'),
+      express               = require('express'),
+      bodyParser            = require('body-parser'),
+      cors                  = require('cors'),
+      path                  = require('path'),
+      GeocoderGeonames      = require('geocoder-geonames'),
+//    async                 = require('express-async-await'),
+      fetch                 = require('node-fetch'),
+      async                 = require('async');
+      https                 = require("https"),
+      mongoose              = require("mongoose"),
+      passport              = require("passport"),
+      passportLocal         = require("passport-local"),
+      passportLocalMongoose = require("passport-local-mongoose"),
+      expressSession        = require("express-session"),
+      Trip                  = require("./models/trip").Trip,
+      User                  = require("./models/user").User;
+      seedDB                = require("./seeds")
 
-const dotenv              = require('dotenv'),
-      express             = require('express'),
-      bodyParser          = require('body-parser'),
-      cors                = require('cors'),
-      path                = require('path'),
-      GeocoderGeonames    = require('geocoder-geonames'),
-      async               = require('express-async-await'),
-      fetch               = require('node-fetch'),
-      https               = require("https"),
-      mongoose            = require("mongoose"),
-      {flightSchema, Flight}    = require('./models/flight.js'),
-      {hotelSchema, Hotel}    = require('./models/hotel.js'),
-      {weatherSchema, Weather}  = require('./models/weather.js'),
-      {countrySchema, Country}  = require('./models/country.js'),
-      {tripSchema, Trip}        = require('./models/trip.js'),
-      {userSchema, User}        = require('./models/user.js');
-      seedDB              = require("./seeds")
+
+
 
 // config dependancies
 
@@ -36,11 +38,6 @@ app.use(cors());
 const geocoder = new GeocoderGeonames({
 	username: process.env.GEONAMES_API_ID
 });
-
-
-//app.set('views', path.join(__dirname, '../client/views'));
-//app.set("view engine", "ejs");
-
 // Connect DB
 
 const DBUser = process.env.DB_USERNAME
@@ -49,23 +46,32 @@ const DBUrl = `mongodb+srv://${DBUser}:${DBPass}@cluster0-kzsic.mongodb.net/trip
 
 mongoose.connect(DBUrl)
 
+// Express Session
+app.use(expressSession({
+  secret: process.env.PASSPORT_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new passportLocal(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//app.set('views', path.join(__dirname, '../client/views'));
+//app.set("view engine", "ejs");
+
+
+
 // App temp data storage
 
-seedDB();
 
 let projectData = {'trips' : []};
 
-User.find({}, function (err, usersData) {
-  if (err) {
-    console.log(err)
-  }
-  else {
-    users = usersData;
-    console.log(users);
-  }
-});
 
-let users = [];
+seedDB()
 
 // Post routes
 
@@ -256,7 +262,7 @@ app.post("/trips/fetchCountryData", (req, res, body) => {
 app.post("/trips/save", (req, res, body) =>{
   projectData.trips[0].departure = req.body.departure;
   if (req.query.new === "true") {
-     User.findOne({ user: "demo" }, function (err, user) {
+     User.findOne({ username: req.user.username }, function (err, user) {
       if (err) {
         console.log(err);
       } else {
@@ -320,41 +326,26 @@ app.post("/trips/save", (req, res, body) =>{
 });
 
 
-app.post("/auth", (req, res, body) => {
-  const userID = req.body.userID;
-  const userPassword = req.body.password;
-  for (var i = 0; i < users.length; i++) {
-    let username = users[i].user;
-    let password = users[i].pass;
-    if ((userID === username) && (userPassword === password)) {
-      res.redirect("/trips?auth=success")
-    }
-  }
-  res.redirect("/?auth=failed")
+app.post("/auth", passport.authenticate("local", {
+  successRedirect: "/trips?auth=success",
+  failureRedirect: "/?auth=failed"
+}) ,(req, res, body) => {
 });
 
 app.post('/user', function (req, res) {
-  let newUserLocal = {
-    user: req.body.userID,
-    pass: req.body.password,
+  User.register(new User({
+    username: req.body.username,
     email: req.body.email
-  };
-  users.push(newUserLocal)
-  const newUserDB = new User({
-    user: req.body.userID,
-    pass: req.body.password,
-    email: req.body.email
-  })
-
-  newUserDB.save(function (err, user) {
+  }), req.body.password, function(err, user) {
     if (err) {
       console.log(err)
-    } else {
-      console.log("New User Created")
+      return res.redirect("/?register=failed")
     }
-  })
-
-  res.redirect("/?register=success")
+      passport.authenticate("local")(req,res, function(){
+        res.redirect("/?register=success")
+      })
+  });
+  
 });
 
 // Get routes
@@ -375,33 +366,35 @@ app.get('/', (req, res, next) => {
   
 });
 
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
 app.get('/user', (req, res) => {
   res.sendFile('dist/register.html' , { root: __dirname + '/../../' })
 });
 
-app.get('/trips', (req, res) => {
- if (req.query.auth != "success") {
-  res.redirect("/?auth=failed");
- }
+app.get('/trips', isLoggedIn ,(req, res) => {
  res.sendFile('dist/trips.html', { root: __dirname + '/../../' })
 });
 
-app.get('/trips/new', (req, res) => {
+app.get('/trips/new', isLoggedIn ,(req, res) => {
    res.sendFile('dist/new.html', { root: __dirname + '/../../' })
 });
 
-app.get('/trips/:id', (req, res) => {
+app.get('/trips/:id', isLoggedIn ,(req, res) => {
    res.sendFile('dist/trip.html', { root: __dirname + '/../../' })
 });
 
 
-app.get('/trips/:id/edit', (req, res) => {
+app.get('/trips/:id/edit', isLoggedIn ,(req, res) => {
    res.sendFile('dist/edit.html', { root: __dirname + '/../../' })
 });
 
-app.get("/fetchData", (req, res) => {
+app.get("/fetchData", isLoggedIn ,(req, res) => {
   let dataToSend = [];
-  User.findOne({ user: "demo" }, function (err, user) {
+  User.findOne({ username: req.user.username }, function (err, user) {
     if (err) {
       console.log(err)
       res.send(dataToSend);
@@ -413,7 +406,7 @@ app.get("/fetchData", (req, res) => {
   });
 });
 
-app.get("/tripData", (req, res) => {
+app.get("/tripData", isLoggedIn ,(req, res) => {
   res.send(projectData.trips);
 });
 
@@ -422,7 +415,12 @@ app.get('*', function (req, res) {
    res.send("ERROR404: Page not found")
 });
 
-
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect("/?auth=failed");
+}
 
 // designates what port the app will listen to for incoming requests
 app.listen(process.env.PORT, process.env.IP, function () {

@@ -1,4 +1,4 @@
-const mongoose            = require("mongoose");
+const mongoose     = require("mongoose");
 
 const flightSchema = new mongoose.Schema({
   flight: String,
@@ -7,12 +7,12 @@ const flightSchema = new mongoose.Schema({
   class: String,
   status: String,
   departure: String,
-  arival: String,
+  arival: String
 })
 
 const Flight = mongoose.model("Flight", flightSchema)
 
 module.exports = {
-	schema: flightSchema,
-	model: Flight
+	flightSchema,
+	Flight
 }

@@ -17,17 +17,23 @@
 						<button type="submit" class="btn btn-success dashboard__button" id="signup__button">Sign-Up</button>
 					</form>		
 		    	</nav>
-			<% } else if (htmlWebpackPlugin.options.page === "trips") { %>
+			<% } else if (htmlWebpackPlugin.options.page === "register") { %>
 				<nav class="navbar__menu collapse navbar-collapse" id="navbarNav">
 		    		<!-- Navigation starts as empty UL that will be populated with JS -->
-		    		<ul id="navbar__list" class="nav nav-pills"></ul>
-		    		<form class="form-inline" action="/" method="get">
-						<button type="submit" class="btn btn-danger dashboard__button" id="logout__button">Logout</button>
-					</form>
-		    	</nav>
+		    		<ul id="navbar__menu" class="nav nav-pills"></ul>
+					<a class="btn btn-outline-secondary dashboard__button" id="back__button" href="/">Back</a>
+				</nav>
+			<% } else if (htmlWebpackPlugin.options.page === "trips") { %>
+				<nav class="navbar__menu collapse navbar-collapse" id="navbarNav">
+					<ul id="navbar__list" class="nav nav-pills"></ul>
+					<form class="form-inline" action="/logout" method="get">
+						<button type="submit" class="btn btn-danger  dashboard__button" id="logout__button">Logout</button>
+					</form>	
+				</nav>
 			<% } else { %>
 				<nav class="navbar__menu collapse navbar-collapse" id="navbarNav">
-		    		<form class="form-inline" action="/" method="get">
+					<ul id="navbar__menu" class="nav nav-pills"></ul>
+		    		<form class="form-inline" action="/logout" method="get">
 						<button type="submit" class="btn btn-danger dashboard__button" id="logout__button">Logout</button>
 					</form>	
 		    	</nav>

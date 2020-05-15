@@ -1,8 +1,8 @@
-const mongoose                  = require("mongoose"),
-      {flightSchema, Flight}    = require('./flight.js'),
-      {hotelSchema, Hotel}    = require('./hotel.js'),
-      {weatherSchema, Weather}  = require('./weather.js'),
-      {countrySchema, Country}  = require('./country.js');
+const mongoose            = require("mongoose"),
+      flightSchema        = require('./flight.js').flightSchema,
+      hotelSchema         = require('./hotel.js').hotelSchema,
+      weatherSchema       = require('./weather.js').weatherSchema,
+      countrySchema       = require('./country.js').countrySchema;
 
 
 const tripSchema = new mongoose.Schema({
@@ -28,6 +28,6 @@ const tripSchema = new mongoose.Schema({
 const Trip =  mongoose.model("Trip", tripSchema)
 
 module.exports = {
-  schema: tripSchema,
-  model: Trip
+  tripSchema,
+  Trip
 }

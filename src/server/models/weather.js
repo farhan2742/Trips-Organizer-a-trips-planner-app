@@ -1,4 +1,4 @@
-const mongoose            = require("mongoose");
+const mongoose    = require("mongoose");
 
 const weatherSchema = new mongoose.Schema({
   weatherDate: String,
@@ -13,7 +13,7 @@ const weatherSchema = new mongoose.Schema({
 const Weather = mongoose.model("Weather", weatherSchema)
 
 module.exports = {
-  schema: weatherSchema,
-  model: Weather
+  weatherSchema,
+  Weather
 }
 
