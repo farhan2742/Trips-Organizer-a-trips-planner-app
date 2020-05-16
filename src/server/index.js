@@ -5,6 +5,7 @@ const dotenv                = require('dotenv'),
       bodyParser            = require('body-parser'),
       cors                  = require('cors'),
       path                  = require('path'),
+      methodOverride        = require('method-override'),
       mongoose              = require("mongoose"),
       passport              = require("passport"),
       passportLocal         = require("passport-local"),
@@ -27,11 +28,14 @@ dotenv.config();
 // Express
 const app = express();
 app.use(express.static('dist'));
+// Method Override
+app.use(methodOverride('_method'))
 // Body Parser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // CORS
 app.use(cors());
+
 // Connect DB
 
 const DBUser = process.env.DB_USERNAME
@@ -58,10 +62,28 @@ passport.deserializeUser(User.deserializeUser());
 // App temp data storage
 
 
-let projectData = {'trips' : []};
+var trip = {
+  title: "",
+  departure: "",
+  stops: [],
+  destination: "",
+  destinationCountry: "",
+  lat: "",
+  lng: "",
+  departureDate: "",
+  returnDate: "",
+  imageURL: "",
+  packing: [],
+  toDo: [],
+  flight: [],
+  hotel: [],
+  currentWeather: {},
+  forcastWeather: [],
+  countryData: {}
+};
 
 
-seedDB();
+//seedDB();
 
 // Designate routes
 
@@ -73,6 +95,10 @@ app.use(indexRoutes);
 
 
 // designates what port the app will listen to for incoming requests
-app.listen(process.env.PORT, process.env.IP, function () {
-    console.log('Example app listening on port 3000!')
-});
+app.listen(process.env.PORT, process.env.IP, startText)
+
+function startText(){ 
+  console.log('Example app listening on port 3000!')
+}
+
+module.exports = startText;

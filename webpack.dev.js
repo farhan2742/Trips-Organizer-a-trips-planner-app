@@ -97,7 +97,7 @@ module.exports = {
         }),
         new HtmlWebPackPlugin({
             page: 'edit',
-            template: '!!ejs-webpack-loader!src/client/views/trip.ejs',
+            template: '!!ejs-webpack-loader!src/client/views/edit.ejs',
             filename: "./edit.html"
         }),
         new HtmlWebPackPlugin({
@@ -118,7 +118,7 @@ module.exports = {
         new HtmlWebPackPlugin({
             page: 'index',
             template: '!!ejs-webpack-loader!src/client/views/index.ejs',
-            filename: "./index.html"
+            filename: "./landing.html"
         }),
         new BundleAnalyzerPlugin({
         	analyzerMode: 'server',

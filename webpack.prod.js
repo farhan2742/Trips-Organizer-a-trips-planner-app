@@ -7,7 +7,7 @@ const precss = require('precss');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-//const WorkboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 
 module.exports = {
@@ -95,7 +95,7 @@ module.exports = {
         new HtmlWebPackPlugin({
             page: 'index',
             template: '!!ejs-webpack-loader!src/client/views/index.ejs',
-            filename: "./index.html"
+            filename: "./landing.html"
         }),
         new HtmlWebPackPlugin({
             page: 'register',
@@ -119,7 +119,7 @@ module.exports = {
         }),
         new HtmlWebPackPlugin({
             page: 'edit',
-            template: '!!ejs-webpack-loader!src/client/views/trip.ejs',
+            template: '!!ejs-webpack-loader!src/client/views/edit.ejs',
             filename: "./edit.html"
         }),
     	new CleanWebpackPlugin({
@@ -149,6 +149,6 @@ module.exports = {
             Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
             Util: 'exports-loader?Util!bootstrap/js/dist/util'
         }),
-       // new WorkboxPlugin.GenerateSW()
+       new WorkboxPlugin.GenerateSW()
 	]
 }

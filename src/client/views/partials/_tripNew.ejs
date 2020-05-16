@@ -10,7 +10,7 @@
 						</label>
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked-alt"></i></span>
+								<span class="input-group-text" id="basic-addon1"><i class="fas fa-home"></i></span>
 							</div>
 							<input type="text" name="departure" id="departure" placeholder="Please enter your trip departure location" class="form-control check__validation" />
 						</div>
@@ -27,9 +27,6 @@
 								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked-alt"></i></span>
 							</div>
 							<input type="text" name="destination" id="destination" placeholder="Please enter your trip destination" class="form-control check__validation" required />
-							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="button">Add Stops</button>
-							</div>
 						</div>
 						<div class="valid-feedback">Looks good!</div>
 						<div class="invalid-feedback">This is not a valid location name.</div>
@@ -61,7 +58,7 @@
 						<div class="invalid-feedback">Plase select a valid date.</div>
 					</fieldset>
 					<div class="form__buttons form-group">
-						<a class="form__button form__button-reset btn btn-danger" href="/trips?auth=success">Cancel</a>
+						<a class="form__button form__button-reset btn btn-danger" href="/trips">Cancel</a>
 						<button class="form__button form__button-submit btn btn-primary" type="submit" name="start" id="start">Save</button>
 					</div>
 				</form>

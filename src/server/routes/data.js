@@ -3,14 +3,14 @@ const   express        = require('express'),
         mongoose       = require("mongoose"),
         //isLoggedIn     = require("../helpers/isLoggedIn"),
         User           = require("../models/user").User,
-        router         = express.Router();
+        router         = express.Router({mergeParams: true});
 
 
 // Send DB data to save to local storage
 
 router.get("/fetchData", isLoggedIn ,(req, res) => {
-    let dataToSend = [];
-    User.findOne({ username: req.user.username }, function (err, user) {
+   let dataToSend = [];
+    User.findOne({ username: req.user.username }).populate("trips").exec(function (err, user) {
         if (err) {
             console.log(err)
             res.send(dataToSend);
@@ -25,7 +25,7 @@ router.get("/fetchData", isLoggedIn ,(req, res) => {
 // Send current trip data to confirm before saving
   
 router.get("/tripData", isLoggedIn ,(req, res) => {
-    res.send(projectData.trips);
+    res.send(trip);
 });
 
 function isLoggedIn(req, res, next){

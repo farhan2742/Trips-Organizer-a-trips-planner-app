@@ -681,29 +681,36 @@ const seedDB = () => {
                               console.log(err);
                         } else {
                               console.log(`Users created`)
-                              User.findOne({ username: "demo" }, function (err, user) {
+                              Trip.remove({}, function(err){
                                     if (err) {
                                           console.log(err)
                                     } else {
-                                          console.log("User Found")
-                                          console.log(user);
                                           for(const trip of trips){
-                                                user.trips.push(trip)
-                                                console.log("trip pushed")
-                                          }
-                                          user.save(function (err, user) {
-                                                if (err) {
-                                                  console.log(err);
-                                                } else {
-                                                  console.log("Success");
+                                                Trip.create(trip, function(err, tripCreated){
+                                                      console.log("trips Created")
+                                                      User.findOne({ username: "demo" }, function (err, user) {
+                                                            if (err) {
+                                                                  console.log(err)
+                                                            } else {
+                                                                  user.trips.push(tripCreated)
+                                                                  console.log("trip pushed")
+                                                            }
+                                                            user.save(function (err, user) {
+                                                                  if (err) {
+                                                                        console.log(err);
+                                                                  } else {
+                                                                        console.log("Success");
+                                                                  }
+                                                            });
+                                                                  
+                                                            })
+                                                      })
                                                 }
-                                          });
-                                          
-                                    }
-                              })
-                              
+                                          }
+                                    })
+                              }      
                         }
-                  })
+                  )
             }
       })
 }

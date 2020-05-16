@@ -1,12 +1,17 @@
 const mongoose                = require("mongoose"),
-      tripSchema    	        = require('./trip.js').tripSchema
+      Trip    	              = require('./trip.js').Trip
       passportLocalMongoose   = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   email: String,
-  trips: [tripSchema]
+  trips: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Trip"
+    }
+  ]
 })
 
 userSchema.plugin(passportLocalMongoose);

@@ -3,14 +3,14 @@ const   express     = require('express'),
         mongoose    = require("mongoose"),
         passport    = require("passport"),
         User        = require("../models/user").User,
-        router      = express.Router();
+        router      = express.Router({mergeParams: true});
 
 
 // Authenticate User
 
 router.post("/auth", passport.authenticate("local", {
-    successRedirect: "/trips?auth=success",
-    failureRedirect: "/?auth=failed"
+    successRedirect: "/trips",
+    failureRedirect: "/"
     }), (req, res, body) => {
 });
   

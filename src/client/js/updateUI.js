@@ -143,6 +143,8 @@ const updateUI = async () => {
 				</tr>
 				`
 			}
+			document.querySelector("#show").setAttribute("action", `/trips/${tripID}?_method=DELETE`)
+			document.querySelector("#edit__button").setAttribute("href", `/trips/${tripID}/edit`)
 			document.querySelector("#side__content").innerHTML = destinationData + countryData;
 			document.querySelector("#trip__title").innerText = trip.title;
 			document.querySelector("#departure").value = trip.departure;
@@ -154,42 +156,42 @@ const updateUI = async () => {
 	if (document.querySelector("#section__trip__new")) {
 		const request = await fetch("/tripData");
 		try {
-			const tripData = await request.json();
+			const trip = await request.json();
 			let destinationData = `
 			<div class="card cards">
 				<div class="card-header">
-					<h3>${tripData[0].destination}</h3>
+					<h3>${trip.destination}</h3>
 				</div>
-				<img class="card-img-top cards__image" src="${tripData[0].imageURL}" alt="${tripData[0].destination} image">
+				<img class="card-img-top cards__image" src="${trip.imageURL}" alt="${trip.destination} image">
 				<div class="card-body">
 					<h5 class="card-title">Current Weather</h5>
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item">${tripData[0].currentWeather.currentWeatherDescription}</li>
-						<li class="list-group-item">${tripData[0].currentWeather.currentWeatherTemp} <span>&#8451;</span></li>
-						<li class="list-group-item"><strong>Wind Speed:</strong> ${tripData[0].currentWeather.currentWeatherWind} m/s</li>
-						<li class="list-group-item"><strong>UV Index:</strong> ${tripData[0].currentWeather.currentWeatherUV}</li>
-						<li class="list-group-item"><strong>Snow:</strong> ${tripData[0].currentWeather.currentWeatherSnow} mm/hr</li>
+						<li class="list-group-item">${trip.currentWeather.weatherDescription}</li>
+						<li class="list-group-item">${trip.currentWeather.weatherTemp} <span>&#8451;</span></li>
+						<li class="list-group-item"><strong>Wind Speed:</strong> ${trip.currentWeather.weatherWind} m/s</li>
+						<li class="list-group-item"><strong>UV Index:</strong> ${trip.currentWeather.weatherUV}</li>
+						<li class="list-group-item"><strong>Snow:</strong> ${trip.currentWeather.weatherSnow} mm/hr</li>
 					</ul>
 				</div>
 				<div class="card-footer text-muted">
-					Fetch on ${tripData[0].currentWeather.currentWeatherDate.slice(0,10)}
+					Fetch on ${trip.currentWeather.weatherDate.slice(0,10)}
 				</div>
 			</div>
 			`;
 			let countryData = `
 			<div class="card cards mt-5">
 				<div class="card-header">
-					<h3>${tripData[0].countryData.name}</h3>
+					<h3>${trip.countryData.name}</h3>
 				</div>
-				<img class="card-img-top" src="${tripData[0].countryData.flag}" alt="Card image cap">
+				<img class="card-img-top" src="${trip.countryData.flag}" alt="Card image cap">
 				<div class="card-body">
 					<h5 class="card-title">Country Information</h5>
 					<ul class="list-group list-group-flush text-left">
-						<li class="list-group-item"><strong>Capital:</strong> ${tripData[0].countryData.capital}</li>
-						<li class="list-group-item"><strong>Region:</strong> ${tripData[0].countryData.region}</li>
-						<li class="list-group-item"><strong>Population:</strong> ${tripData[0].countryData.population}</li>
-						<li class="list-group-item"><strong>Timezone:</strong> ${tripData[0].countryData.timezones[0]}</li>
-						<li class="list-group-item"><strong>Currency:</strong> ${tripData[0].countryData.currencies[0].name}</li>
+						<li class="list-group-item"><strong>Capital:</strong> ${trip.countryData.capital}</li>
+						<li class="list-group-item"><strong>Region:</strong> ${trip.countryData.region}</li>
+						<li class="list-group-item"><strong>Population:</strong> ${trip.countryData.population}</li>
+						<li class="list-group-item"><strong>Timezone:</strong> ${trip.countryData.timezones[0]}</li>
+						<li class="list-group-item"><strong>Currency:</strong> ${trip.countryData.currencies[0].name}</li>
 					</ul>
 				</div>
 			</div>
@@ -213,27 +215,112 @@ const updateUI = async () => {
 				</tbody>
 			</table>
 			`
-			for (const forcast of tripData[0].forcastWeather) {
+			for (const forcast of trip.forcastWeather) {
 				forcastDataRows += `
 				<tr>
-					<th scope="row">${forcast.forcastWeatherDate}</th>
-					<td>${forcast.forcastWeatherDescription}</td>
-					<td>${forcast.forcastWeatherTemp} <span>&#8451;</span></td>
-					<td>${forcast.forcastWeatherWind} m/s</td>
-					<td>${forcast.forcastWeatherUV}</td>
-					<td>${forcast.forcastWeatherSnow} mm/hr</td>
+					<th scope="row">${forcast.weatherDate}</th>
+					<td>${forcast.weatherDescription}</td>
+					<td>${forcast.weatherTemp} <span>&#8451;</span></td>
+					<td>${forcast.weatherWind} m/s</td>
+					<td>${forcast.weatherUV}</td>
+					<td>${forcast.weatherSnow} mm/hr</td>
 				</tr>
 				`
 			}
 			document.querySelector("#side__content").innerHTML = destinationData + countryData;
-			document.querySelector("#trip__title").innerText = tripData[0].title;
-			document.querySelector("#destination").value = tripData[0].destination;
-			document.querySelector("#departureDate").value = tripData[0].departureDate;
-			document.querySelector("#returnDate").value = tripData[0].returnDate;
+			document.querySelector("#trip__title").innerText = trip.title;
+			document.querySelector("#destination").value = trip.destination;
+			document.querySelector("#departureDate").value = trip.departureDate;
+			document.querySelector("#returnDate").value = trip.returnDate;
 			document.querySelector("#forcast__div").innerHTML = forcastDataHeader + forcastDataRows + forcastDataFooter;
 		} catch(error) {
 			console.log("error:" + error);
 		}
+	}
+	if (document.querySelector("#section__trip__edit")) {
+		const trips = JSON.parse(localStorage.getItem('trips')) || []
+		console.log(trips)
+		let tripID = window.location.href.split("/");
+		tripID = tripID[tripID.length-2];
+		let trip = trips.find(trip => trip._id == tripID);
+		let destinationData = `
+			<div class="card cards">
+				<div class="card-header">
+					<h3>${trip.destination}</h3>
+				</div>
+				<img class="card-img-top cards__image" src="${trip.imageURL}" alt="${trip.destination} image">
+				<div class="card-body">
+					<h5 class="card-title">Current Weather</h5>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">${trip.currentWeather.weatherDescription}</li>
+						<li class="list-group-item">${trip.currentWeather.weatherTemp} <span>&#8451;</span></li>
+						<li class="list-group-item"><strong>Wind Speed:</strong> ${trip.currentWeather.weatherWind} m/s</li>
+						<li class="list-group-item"><strong>UV Index:</strong> ${trip.currentWeather.weatherUV}</li>
+						<li class="list-group-item"><strong>Snow:</strong> ${trip.currentWeather.weatherSnow} mm/hr</li>
+					</ul>
+				</div>
+				<div class="card-footer text-muted">
+					Fetch on ${trip.currentWeather.weatherDate.slice(0,10)}
+				</div>
+			</div>
+			`;
+			let countryData = `
+			<div class="card cards mt-5">
+				<div class="card-header">
+					<h3>${trip.countryData.name}</h3>
+				</div>
+				<img class="card-img-top" src="${trip.countryData.flag}" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Country Information</h5>
+					<ul class="list-group list-group-flush text-left">
+						<li class="list-group-item"><strong>Capital:</strong> ${trip.countryData.capital}</li>
+						<li class="list-group-item"><strong>Region:</strong> ${trip.countryData.region}</li>
+						<li class="list-group-item"><strong>Population:</strong> ${trip.countryData.population}</li>
+						<li class="list-group-item"><strong>Timezone:</strong> ${trip.countryData.timezones[0]}</li>
+						<li class="list-group-item"><strong>Currency:</strong> ${trip.countryData.currencies[0].name}</li>
+					</ul>
+				</div>
+			</div>
+			`;
+			const forcastDataHeader = `
+			<table class="table table-sm">
+				<thead>
+					<tr>
+						<th scope="col">Date</th>
+						<th scope="col">Description</th>
+						<th scope="col">Temperature</th>
+						<th scope="col">Wind Speed</th>
+						<th scope="col">UV Index</th>
+						<th scope="col">Snow</th>
+					</tr>
+				</thead>
+				<tbody>
+			`
+			let forcastDataRows = ``;		
+			const forcastDataFooter = `
+				</tbody>
+			</table>
+			`
+			for (const forcast of trip.forcastWeather) {
+				forcastDataRows += `
+				<tr>
+					<th scope="row">${forcast.weatherDate}</th>
+					<td>${forcast.weatherDescription}</td>
+					<td>${forcast.weatherTemp} <span>&#8451;</span></td>
+					<td>${forcast.weatherWind} m/s</td>
+					<td>${forcast.weatherUV}</td>
+					<td>${forcast.weatherSnow} mm/hr</td>
+				</tr>
+				`
+			}
+			document.querySelector("#edit").setAttribute("action", `/trips/${tripID}?_method=PUT`)
+			document.querySelector("#side__content").innerHTML = destinationData + countryData;
+			document.querySelector("#trip__title").innerText = `Edit ${trip.title}`;
+			document.querySelector("#departure").value = trip.departure;
+			document.querySelector("#destination").value = trip.destination;
+			document.querySelector("#departureDate").value = trip.departureDate;
+			document.querySelector("#returnDate").value = trip.returnDate;
+			document.querySelector("#forcast__div").innerHTML = forcastDataHeader + forcastDataRows + forcastDataFooter;
 	}				
 };
 

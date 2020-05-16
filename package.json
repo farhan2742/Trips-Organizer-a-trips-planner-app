@@ -28,6 +28,7 @@
     "express-session": "^1.17.1",
     "geocoder-geonames": "^0.1.2",
     "imports-loader": "^0.8.0",
+    "method-override": "^3.0.0",
     "mini-css-extract-plugin": "^0.9.0",
     "mongoose": "^5.9.13",
     "optimize-css-assets-webpack-plugin": "^5.0.3",

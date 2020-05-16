@@ -1,82 +1,70 @@
-		<main class="page__section row pt-0 section__trip__new" data-nav="Login" id="section__trip__edit">	
-			<div class="col-md-7 pr-4 align-items-center main__content">
-				<h2 class="trip__heading display-4 text-dark text-center mb-5" id="trip__title">
-					Trip Title
-				</h2>
-				<form class="needs-validation" id="plan" action="/trips" method="post">
-					<fieldset id="plan__form__destination" class="form-group">
-						<label for="destination" class="form__label sr-only sr-only-focusable">
-							Departure:
-						</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked-alt"></i></span>
-							</div>
-							<input type="text" name="departure" id="departure" placeholder="Please enter your trip departure location" class="form-control check__validation" />
-						</div>
-						<div class="valid-feedback">Looks good!</div>
-						<div class="invalid-feedback">This is not a valid location name.</div>
-						<small id="titleHelp" class="form-text text-light">This is not required but is helpful</small>
-					</fieldset>
-					<fieldset id="plan__form__destination" class="form-group">
-						<label for="destination" class="form__label sr-only sr-only-focusable">
-							Destination:
-						</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked-alt"></i></span>
-							</div>
-							<input type="text" name="destination" id="destination" placeholder="Please enter your trip destination" class="form-control check__validation" required />
-							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="button">Add Stops</button>
-							</div>
-						</div>
-						<div class="valid-feedback">Looks good!</div>
-						<div class="invalid-feedback">This is not a valid location name.</div>
-					</fieldset>
-					<fieldset id="plan__form__departure" class="form-group">
-						<label for="departureDate" class="form__label sr-only sr-only-focusable">
-							Departure Date:
-						</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-plane-departure"></i></span>
-							</div>
-							<input type="date" name="departureDate" id="departureDate" placeholder="Please your departure date" class="form-control check__validation" required />
-						</div>
-						<div class="valid-feedback">Looks good!</div>
-						<div class="invalid-feedback">Plase select a valid date.</div>
-					</fieldset>
-					<fieldset id="plan__form__return" class="form-group">
-						<label for="returnDate" class="form__label sr-only sr-only-focusable">
-							Return Date:
-						</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-plane-arrival"></i></span>
-							</div>
-							<input type="date" name="returnDate" id="returnDate" placeholder="Please your return date" class="form-control check__validation" required />
-						</div>
-						<div class="valid-feedback">Looks good!</div>
-						<div class="invalid-feedback">Plase select a valid date.</div>
-					</fieldset>
-					<div class="form__buttons form-group">
-						<a class="form__button form__button-reset btn btn-danger" href="/trips?auth=success">Cancel</a>
-						<button class="form__button form__button-submit btn btn-primary" type="submit" name="start" id="start">Save</button>
+<main class="page__section row pt-0 section__trip__edit" data-nav="Login" id="section__trip__edit">	
+	<div class="col-md-7 pr-4 align-items-center main__content">
+		<h2 class="trip__heading display-4 text-dark text-center mb-5" id="trip__title">
+			Trip Title
+		</h2>
+		<form class="needs-validation" id="edit" action="/trips?edit=true" method="post">
+			<fieldset id="edit__form__destination" class="form-group">
+				<label for="destination" class="form__label sr-only sr-only-focusable">
+					Departure:
+				</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1"><i class="fas fa-home"></i></span>
 					</div>
-				</form>
-				<div class="forcast__weather" id="forcast__weather">
-					<h3>
-						Weather Forcast
-					</h3>
-					<div id="forcast__div" class="table-responsive">
-						
+					<input type="text" name="trip[departure]" id="departure" placeholder="Please enter your trip departure location" class="form-control" />
+				</div>
+			</fieldset>
+			<fieldset id="edit__form__destination" class="form-group">
+				<label for="destination" class="form__label sr-only sr-only-focusable">
+					Destination:
+				</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked-alt"></i></span>
 					</div>
+					<input type="text" name="trip[destination]" id="destination" placeholder="Please enter your trip destination" class="form-control" required />
 				</div>
-			</div>
-			<div class="col-md-3 " id="sidebar">
-				<div side__content align-items-center collapse id="side__content">
-					
+			</fieldset>
+			<fieldset id="edit__form__departure" class="form-group">
+				<label for="departureDate" class="form__label sr-only sr-only-focusable">
+					Departure Date:
+				</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1"><i class="fas fa-plane-departure"></i></span>
+					</div>
+					<input type="date" name="trip[departureDate]" id="departureDate" placeholder="Please your departure date" class="form-control" required />
 				</div>
+			</fieldset>
+			<fieldset id="edit__form__return" class="form-group">
+				<label for="returnDate" class="form__label sr-only sr-only-focusable">
+					Return Date:
+				</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1"><i class="fas fa-plane-arrival"></i></span>
+					</div>
+					<input type="date" name="trip[returnDate]" id="returnDate" placeholder="Please your return date" class="form-control" required />
+				</div>
+			</fieldset>
+			<div class="form__buttons form-group">
+				<a class="btn btn-outline-secondary" href="/trips">Back</a>
+				<button class="form__button form__button-submit btn btn-primary" type="submit" name="edit" id="save__button">Save</button>
 			</div>
-		</main>
+		</form>
+		<div class="forcast__weather text-center" id="forcast__weather">
+			<h3>
+				Weather Forcast
+			</h3>
+			<div id="forcast__div" class="table-responsive">
+				
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 text-center" id="sidebar">
+		<div side__content align-items-center collapse id="side__content">
+			
+		</div>
+	</div>
+</main>

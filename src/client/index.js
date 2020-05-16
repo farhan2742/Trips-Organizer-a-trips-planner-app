@@ -1,10 +1,7 @@
-import { handleSubmit } from './js/formHandler';
-import { postData } from './js/postData';
 import { updateUI } from './js/updateUI';
 import { buildMenu } from './js/buildMenu';
 import { notScrolling } from './js/notScrolling';
 import { changeBackground } from './js/changeBackground'
-import { fetchAPIdata } from './js/fetchAPIdata';
 import { saveLocal } from './js/saveLocal';
 
 
@@ -42,18 +39,18 @@ import feature2 from './imgs/feature2.jpg'
 import feature3 from './imgs/feature3.jpg'
 import feature4 from './imgs/feature4.jpg'
 
-
-
-
-//export { handleSubmit, postData, updateUI, buildMenu, notScrolling, changeBackground, fetchAPIdata };
-
 function run(){
 
 	if (document.querySelector("#section__plan")) {
-		saveLocal()
-		.then(function() {
+		if (navigator.onLine) {
+			saveLocal()
+			.then(function() {
+				updateUI();
+			})
+		} else {
 			updateUI();
-		})
+		}
+		
 	} else if ((!document.querySelector("#section__register")) || (!document.querySelector("#section__login"))) {
 		updateUI();
 	}
@@ -79,10 +76,6 @@ function run(){
 		const ScrollToElement = document.querySelector(clicked.getAttribute("href"));
 	  	ScrollToElement.scrollIntoView({block: 'end', behavior: 'smooth'})}
 	  	);
-	
-		
-
-	
 }
 
 	// hide menu bar if scrolling stoped
@@ -96,26 +89,6 @@ function run(){
 		});
 	})
 
-	/*
-	// API call
-	if (document.getElementById('start')) {
-		const formSubmit = document.getElementById('start');
-		formSubmit.addEventListener('click',function (event) {
-			event.preventDefault();
-			const formValidation = document.querySelectorAll('.check__validation');
-			let formValid = true;
-			for (var i = 0; i < formValidation.length; i++) {
-				formValidation[i].checkValidity();
-				formValidation[i].reportValidity();
-				if (formValidation[i].checkValidity() === false) {
-					formValid = false;
-					formValidation[i].classList.add("is-invalid");
-				}
-			}	
-			if (formValid === true) {
-				handleSubmit();
-			}
-		});
-	}
-	*/
 document.addEventListener("DOMContentLoaded",run());
+
+export { run }
