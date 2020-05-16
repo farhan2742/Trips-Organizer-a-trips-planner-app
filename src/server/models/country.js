@@ -11,7 +11,7 @@ const countrySchema = new mongoose.Schema({
   flag: String
 })
 
-Country = mongoose.model("Country", countrySchema);
+const Country = mongoose.model("Country", countrySchema);
 
 module.exports = {
 	countrySchema,

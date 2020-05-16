@@ -74,11 +74,9 @@ router.get('/new', isLoggedIn ,(req, res) => {
     res.sendFile('dist/new.html', { root: __dirname + '/../../../' })
 });
 
-
 // Delete a trip
 
 router.delete("/:id", function(req, res){
-    console.log(req.params.id)
     Trip.findByIdAndRemove(req.params.id, function(err){
         if (err) {
             console.log(err)
@@ -102,6 +100,7 @@ router.put("/:id", isLoggedIn ,(req, res) => {
     })
 });
 
+
 // Send show trip page
 
 router.get('/:id', isLoggedIn ,(req, res) => {
@@ -114,6 +113,8 @@ router.get('/:id', isLoggedIn ,(req, res) => {
 router.get('/:id/edit', isLoggedIn ,(req, res) => {
     res.sendFile('dist/edit.html', { root: __dirname + '/../../../' })
 });
+
+
 
 
 

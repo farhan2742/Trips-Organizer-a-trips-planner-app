@@ -1,5 +1,5 @@
 const mongoose                = require("mongoose"),
-      Trip    	              = require('./trip.js').Trip
+      Trip    	              = require('./trip.js').Trip,
       passportLocalMongoose   = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({

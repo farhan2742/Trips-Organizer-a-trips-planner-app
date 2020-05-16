@@ -3,7 +3,7 @@ const   dotenv                = require('dotenv'),
         GeocoderGeonames      = require('geocoder-geonames'),
         https                 = require("https"),
         //isLoggedIn            = require("../helpers/isLoggedIn"),
-        router                = express.Router({mergeParams: true});
+        router                = express.Router();
 
 // dot ENV
 dotenv.config();
@@ -15,6 +15,7 @@ const geocoder = new GeocoderGeonames({
 
 
 router.post("/fetchCordinates", isLoggedIn ,(req, res, body) => {
+    console.log("GeoNames");
     if (req.query.new === "true") {
         geocoder.get('search',{
             q: trip.destination
@@ -36,6 +37,7 @@ router.post("/fetchCordinates", isLoggedIn ,(req, res, body) => {
 
 
 router.post("/fetchCurrentWeather", isLoggedIn ,(req, res, body) => {
+    console.log("Current Weather");
     if (req.query.new === "true") {
         const baseURL = "https://api.weatherbit.io/v2.0/current?";
         const ApiKey = `&key=${process.env.WEATHERBIT_API_KEY}`;
@@ -68,6 +70,7 @@ router.post("/fetchCurrentWeather", isLoggedIn ,(req, res, body) => {
 // Fetch Forcast weather for trip destination
 
 router.post("/fetchForcastWeather", isLoggedIn ,(req, res, body) => {
+    console.log("Forcast Weather");
     if (req.query.new === "true") {
         const baseURL = "https://api.weatherbit.io/v2.0/forecast/daily?";
         const ApiKey = `&key=${process.env.WEATHERBIT_API_KEY}`;
@@ -104,6 +107,7 @@ router.post("/fetchForcastWeather", isLoggedIn ,(req, res, body) => {
 // fetch Destination Image
 
 router.post("/fetchDestinationImage", isLoggedIn ,(req, res, body) => {
+    console.log("Destination Image");
     if (req.query.new === "true") {
         const baseURL = "https://pixabay.com/api/?";
         const ApiKey = `key=${process.env.PIXABAY_API_KEY}`;
@@ -153,6 +157,7 @@ router.post("/fetchDestinationImage", isLoggedIn ,(req, res, body) => {
 // fetch destination country data
 
 router.post("/fetchCountryData", isLoggedIn ,(req, res, body) => {
+    console.log("Fetch Country");
     if (req.query.new === "true") {
         const baseURL = "https://restcountries.eu/rest/v2/name/";
         const query = trip.destinationCountry;
@@ -181,31 +186,6 @@ router.post("/fetchCountryData", isLoggedIn ,(req, res, body) => {
     }   
 });
 
-function fetchCountryData() {
-    const baseURL = "https://restcountries.eu/rest/v2/name/";
-    const query = trip.destinationCountry;
-    const URL = baseURL+query;
-    https.get(URL,(rasp) => {
-        let data =  '';
-        rasp.on('data', (chunk) => {
-            data += chunk
-        })
-        rasp.on('end', () => {
-            const fetchedCountryData = (JSON.parse(data));
-            trip.countryData.name = fetchedCountryData[0].name
-            trip.countryData.capital = fetchedCountryData[0].capital
-            trip.countryData.region = fetchedCountryData[0].subregion
-            trip.countryData.population = fetchedCountryData[0].population
-            trip.countryData.area = fetchedCountryData[0].area
-            trip.countryData.timezones = fetchedCountryData[0].timezones
-            trip.countryData.currencies = fetchedCountryData[0].currencies
-            trip.countryData.flag = fetchedCountryData[0].flag
-        })
-        rasp.on("error", (err) => {
-            console.log("Error: " + err.message)
-        })
-    })
-}
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

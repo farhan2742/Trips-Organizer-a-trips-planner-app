@@ -42,14 +42,10 @@ import feature4 from './imgs/feature4.jpg'
 function run(){
 
 	if (document.querySelector("#section__plan")) {
-		if (navigator.onLine) {
 			saveLocal()
 			.then(function() {
 				updateUI();
 			})
-		} else {
-			updateUI();
-		}
 		
 	} else if ((!document.querySelector("#section__register")) || (!document.querySelector("#section__login"))) {
 		updateUI();

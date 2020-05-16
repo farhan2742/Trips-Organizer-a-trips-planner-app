@@ -95,10 +95,8 @@ app.use(indexRoutes);
 
 
 // designates what port the app will listen to for incoming requests
-app.listen(process.env.PORT, process.env.IP, startText)
+app.listen(process.env.PORT, process.env.IP, function () {
+    console.log('Example app listening on port 3000!')
+});
 
-function startText(){ 
-  console.log('Example app listening on port 3000!')
-}
-
-module.exports = startText;
+module.exports = app
