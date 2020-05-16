@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
     "start": "node src/server/index.js",
-    "dev": "webpack-dev-server --config webpack.dev.js --open",
-    "build-prod": "webpack --config webpack.prod.js",
-    "build-dev": "webpack --config webpack.dev.js"
+    "build": "webpack --config webpack.config.js",
   },
   "keywords": [],
   "author": "Farhan Kiyani",
