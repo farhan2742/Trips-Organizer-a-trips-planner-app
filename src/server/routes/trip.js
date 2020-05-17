@@ -4,7 +4,6 @@ const   dotenv                = require('dotenv'),
         mongoose              = require("mongoose"),
         Trip                  = require("../models/trip").Trip,
         User                  = require("../models/user").User,
-        //isLoggedIn            = require("../helpers/isLoggedIn"),
         router                = express.Router({mergeParams: true});
 
 // dot ENV

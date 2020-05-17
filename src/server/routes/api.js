@@ -2,7 +2,6 @@ const   dotenv                = require('dotenv'),
         express               = require('express'),
         GeocoderGeonames      = require('geocoder-geonames'),
         https                 = require("https"),
-        //isLoggedIn            = require("../helpers/isLoggedIn"),
         router                = express.Router();
 
 // dot ENV

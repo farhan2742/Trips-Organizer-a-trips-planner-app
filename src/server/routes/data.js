@@ -1,7 +1,6 @@
 const   express        = require('express'),
         bodyParser     = require('body-parser'),
         mongoose       = require("mongoose"),
-        //isLoggedIn     = require("../helpers/isLoggedIn"),
         User           = require("../models/user").User,
         router         = express.Router({mergeParams: true});
 

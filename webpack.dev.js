@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-//const TransferWebpackPlugin = require('transfer-webpack-plugin');
+const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -17,11 +17,16 @@ module.exports = {
     },
 	mode: 'development',
     devtool: 'source-map',
-	entry: './src/client/index.js',
+	entry: {
+        service_worker: './src/client/serviceWorker.js',
+        app: './src/client/index.js'
+    },
     output: {
         libraryTarget: 'var',
         library: 'Client',
-        publicPath: '/'
+        publicPath: '/',
+        filename: '[name].js',
+        filename: '[name].js'
     },
 	module: {
         rules: [
@@ -144,6 +149,6 @@ module.exports = {
             Util: 'exports-loader?Util!bootstrap/js/dist/util'
         }),
         new ExtractTextPlugin('./styles/main.css'),
-//        new TransferWebpackPlugin([{ from: 'src/client/imgs', to: 'imgs' },])
+        new TransferWebpackPlugin([{ from: 'src/client/serviceWorker', to: '/' },])
 	]
 }
