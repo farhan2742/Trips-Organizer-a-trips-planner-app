@@ -18,14 +18,12 @@ module.exports = {
 	mode: 'development',
     devtool: 'source-map',
 	entry: {
-        service_worker: './src/client/serviceWorker.js',
         app: './src/client/index.js'
     },
     output: {
         libraryTarget: 'var',
         library: 'Client',
         publicPath: '/',
-        filename: '[name].js',
         filename: '[name].js'
     },
 	module: {
