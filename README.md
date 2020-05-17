@@ -33,9 +33,9 @@ In order to install and run this project follow the below steps
 GEONAMES_API_ID=***********************
 WEATHERBIT_API_KEY=********************
 PIXABAY_API_KEY=***********************
-DB_USERNAME = farhan
-DB_PASSWORD = set4775164
-PASSPORT_SECRET = da64b9cb99cc672daac0038c58dc2deb
+DB_USERNAME =***********************
+DB_PASSWORD =***********************
+PASSPORT_SECRET =***********************
 PORT=3000
 IP=localhost
 ```
