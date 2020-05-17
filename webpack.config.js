@@ -7,20 +7,23 @@ const precss = require('precss');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+const TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 
 module.exports = {
 	node: {
         fs: 'empty'
     },
+    entry: {
+        app: './src/client/index.js'
+    },
     output: {
         libraryTarget: 'var',
         library: 'Client',
-        publicPath: '/'
+        publicPath: '/',
+        filename: '[name].js',
     },
-	mode: 'production',
-	entry: './src/client/index.js',
+    mode: 'production',
 	optimization: {
 		minimizer: [
 			new TerserPlugin({}),
@@ -64,7 +67,6 @@ module.exports = {
 			        {
 			            loader: 'sass-loader',
 			            options: {
-             				 // Prefer `dart-sass`
               				implementation: require('sass'),
         				},
 					}
@@ -123,8 +125,6 @@ module.exports = {
             filename: "./edit.html"
         }),
     	new CleanWebpackPlugin({
-                // Simulate the removal of files
-                dry: true,
                 // Write Logs to Console
                 verbose: true,
                 // Automatically remove all unused webpack assets on rebuild
@@ -149,6 +149,6 @@ module.exports = {
             Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
             Util: 'exports-loader?Util!bootstrap/js/dist/util'
         }),
-       new WorkboxPlugin.GenerateSW()
+        new TransferWebpackPlugin([{ from: 'src/client/serviceWorker', to: '/' },])
 	]
 }
