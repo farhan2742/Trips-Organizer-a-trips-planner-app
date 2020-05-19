@@ -33,9 +33,9 @@ In order to install and run this project follow the below steps
 GEONAMES_API_ID=***********************
 WEATHERBIT_API_KEY=********************
 PIXABAY_API_KEY=***********************
-DB_USERNAME =**************************
-DB_PASSWORD =**************************
-PASSPORT_SECRET =**********************
+DB_USERNAME =***********************
+DB_PASSWORD =***********************
+PASSPORT_SECRET =***********************
 PORT=3000
 IP=localhost
 ```
@@ -83,7 +83,10 @@ Testing is done with Jest. To run test, use the command
 * [Passport.js](http://www.passportjs.org/) - Back-end server Authentication
 * [EJS](https://ejs.co/) - Back-end Templating
 
+## Deployed on
+
+* [Heroku](https://www.heroku.com/) at [Trip Organizer](https://smart-trip-organizer.herokuapp.com/)
+
 ## Authors
 
 * [Farhan Kiyani](https://github.com/farhan2742)
-
