@@ -83,6 +83,10 @@ Testing is done with Jest. To run test, use the command
 * [Passport.js](http://www.passportjs.org/) - Back-end server Authentication
 * [EJS](https://ejs.co/) - Back-end Templating
 
+## Deployed on
+
+* [Heroku](https://www.heroku.com/) at [Trip Organizer](https://smart-trip-organizer.herokuapp.com/)
+
 ## Authors
 
 * [Farhan Kiyani](https://github.com/farhan2742)
