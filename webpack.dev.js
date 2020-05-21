@@ -18,12 +18,14 @@ module.exports = {
 	mode: 'development',
     devtool: 'source-map',
 	entry: {
+        service_worker: './src/client/serviceWorker.js',
         app: './src/client/index.js'
     },
     output: {
         libraryTarget: 'var',
         library: 'Client',
         publicPath: '/',
+        filename: '[name].js',
         filename: '[name].js'
     },
 	module: {
@@ -147,6 +149,7 @@ module.exports = {
             Util: 'exports-loader?Util!bootstrap/js/dist/util'
         }),
         new ExtractTextPlugin('./styles/main.css'),
-        new TransferWebpackPlugin([{ from: 'src/client/serviceWorker', to: '/' },])
+        new TransferWebpackPlugin([{ from: 'src/client/serviceWorker', to: '/' },]),
+        new TransferWebpackPlugin([{ from: 'src/client/imgs/favicon', to: '/imgs/favicon' },])
 	]
 }

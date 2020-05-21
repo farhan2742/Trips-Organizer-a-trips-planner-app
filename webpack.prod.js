@@ -149,6 +149,7 @@ module.exports = {
             Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
             Util: 'exports-loader?Util!bootstrap/js/dist/util'
         }),
-        new TransferWebpackPlugin([{ from: 'src/client/serviceWorker', to: '/' },])
+        new TransferWebpackPlugin([{ from: 'src/client/serviceWorker', to: '/' },]),
+        new TransferWebpackPlugin([{ from: 'src/client/imgs/favicon', to: '/imgs/favicon' },])
 	]
 }
