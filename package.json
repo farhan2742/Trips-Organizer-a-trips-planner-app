@@ -57,7 +57,7 @@
     "image-webpack-loader": "^6.0.0",
     "jest": "^25.5.4",
     "jquery": "^3.4.1",
-    "node-sass": "^4.14.0",
+    "node-sass": "^7.0.0",
     "sass": "^1.22.10",
     "sass-loader": "^8.0.2",
     "source-map-loader": "^0.2.4",
